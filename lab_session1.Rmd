@@ -1,0 +1,249 @@
+---
+title: "Lab Sesion 1"
+author: "Giulia Bertoldo"
+date: "2/22/2022"
+output:
+   html_document:
+    theme: cosmo
+    highlight: monochrome
+    toc: true
+    toc_float: true
+    toc_depth: 4
+---
+
+```{r}
+library(haven)
+library(dplyr)
+library(corrplot)
+```
+
+# 1. General introduction to the dataset
+
+The European Social Survey is a survey conducted across Europe every two years via face-to-face interviews. The survey measures "attitude, beliefs and behavior patterns" on a representative sample of people aged 15 and over resident within private households. Here we consider the 4th edition, run in 2008 in Belgium. 
+
+## More information
+
+* [Data documentation](https://www.europeansocialsurvey.org/docs/round4/survey/ESS4_data_documentation_report_e05_5.pdf).
+
+* [Source questionnaire](https://www.europeansocialsurvey.org/docs/round4/fieldwork/source/ESS4_source_main_questionnaire.pdf)
+
+* [Data](http://nesstar.ess.nsd.uib.no/webview/)
+
+\newpage
+
+# 2. Selection of variables for all the laboratories 
+
+We use a subset of 21 variables. 
+
+*D15-17 & D18-20 & & D21 - 26 & D27 - 29 & D1 - 6: Part of the block D1-50: Welfare includes attitudes towards welfare provision, size of claimant groups, views on taxation, attitutdes towards service delivery and likely future dependence on welfare.*
+
+People have different views on what the responsibilities of governments should or should not be. For each of the tasks I read out please tell me on a score of 0-10 how much responsibility you think governments should have. 0 means it should not be governments? responsibility at all and 10 means it should be entirely governments? responsibility. Firstly to? (0 Not governments’ responsibility at all - 10 Entirely governments’ responsibility)
+
+**Welfare Support** items:
+
+* gvslvol Standard of living for the old, governments’ responsibility  
+    +  ...**ensure a reasonable standard of living for the old?**
+    + D15 - 17
+    
+* gvhlthc Health care for the sick, governments’ responsibility 
+    + ...**ensure adequate health care for the sick?**
+    + D15 - 17
+  
+* gvjbevn Job for everyone, governments’ responsibility 
+    + ...**ensure a job for everyone who wants one?**
+    + D15 - 17
+
+* gvcldcr Child care services for working parents, governments’ responsibility 
+    + ...**ensure sufficient child care services for working parents?**
+    + D18-20 
+
+* ggvslvue Standard of living for the unemployed, governments’ responsibility
+    + ...**ensure a reasonable standard of living for the unemployed?**
+    + D18-20
+  
+* gvpdlwk Paid leave from work to care for sick family, governments’ responsibility 
+    + And how much responsibility do you think governments should have to... ...**provide paid leave from work for people who temporarily have to care for sick family members?**
+    + D18-20 
+
+**Economic Criticism** items: 
+
+(D21-26) Using this card please tell me to what extent you agree or disagree that social benefits and services in [country]... (1 Agree strongly - 5 Disagree strongly) 
+
+* sbstrec Social benefits/services place too great strain on economy
+    + ....**place too great a strain on the economy?**
+    + D21 - 26
+
+* sbbsntx Social benefits/services cost businesses too much in taxes/charges  
+    + ....**cost businesses too much in taxes and charges?**
+    + D21 - 26
+
+**Social Criticism** items: 
+
+* sbprvpv Social benefits/services prevent widespread poverty 
+    + ....**prevent widespread poverty?**
+    + D21 - 26
+
+* sbeqsoc Social benefits/services lead to a more equal society 
+    + ....**lead to a more equal society?**
+    + D21 - 26
+    
+* sbcwkfm Social benefits/services make it easier to combine work and family 
+    + ....**make it easier for people to combine work and family life?**
+    + D21 - 26
+
+
+
+(D27-29) And to what extent do you agree or disagree that social benefits and services in [country]...
+ 
+**Moral Criticism** items: 
+
+* sblazy Social benefits/services make people lazy 
+    + ...**make people lazy?**
+    + D27 - 29
+
+* sblwcoa Social benefits/services make people less willing care for one another
+    + ...**make people less willing to care for one another?**
+    + D27 - 29
+    
+* sblwlka Social benefits/services make people less willing look after themselves/family 
+    + ....**make people less willing to look after themselves and their family?**
+    + D27 - 29
+
+**Other** items: 
+
+(D1 - 6) Using this card, please say how much you agree or disagree with each of the following statements (1 Agree strongly - 5 Disagree strongly).
+    
+* dfincac Large differences in income acceptable to reward talents and efforts
+    + **Large differences in people's incomes are acceptable to properly reward differences in talents and efforts**. 
+    + D1 - 6
+
+* smdfslv For fair society, differences in standard of living should be small
+    + **For a society to be fair, differences in people's standard of living should be small.**
+    + D1 - 6
+
+
+*B30 -33: Part of the block D1-50: Politics, including: political interest, efficacy, trust, electoral and other forms of participation, party allegiance, socio-political orietnations.*  
+
+Using this card, please say to what extent you agree or disagree with each of the following statements (1 Agree strongly - 5 Disagree strongly).
+
+* gincdif Government should reduce differences in income levels
+    + **The government should take measures to reduce differences in income levels**
+
+
+* agea Respondent’s age
+
+* eduyrs Years of full-time education completed
+
+* gndr Gender (1 Male, 2 Female)
+
+* hinctnta Household’s total net income, all sources (Deciles of the actual household income range in the given country.)
+
+# 3. Variables used in laboratory session 1
+
+**Welfare Support** items:
+
+* gvslvol Standard of living for the old, governments’ responsibility  
+    
+* gvhlthc Health care for the sick, governments’ responsibility 
+  
+* gvjbevn Job for everyone, governments’ responsibility 
+
+* gvcldcr Child care services for working parents, governments’ responsibility 
+
+* ggvslvue Standard of living for the unemployed, governments’ responsibility
+  
+* gvpdlwk Paid leave from work to care for sick family, governments’ responsibility 
+
+\newpage
+
+# 2. Analysis plan
+
+\newpage 
+
+# 3. EFA
+
+```{r}
+# Import data
+ess_df <- haven::read_sav("data/ESS4_belgium.sav")
+
+# EFA
+str(ess_df)
+View(ess_df)
+head(ess_df)
+
+# number of subjects
+nrow(ess_df)
+
+# number of variables
+ncol(ess_df)
+
+# names of variables
+names(ess_df)
+
+# In this first lab, we are exploring two concepts:
+# welfare support and welfare criticism. Let’s take a closer look at our items
+
+# Select only variables of interest
+ess_df_selected <- ess_df %>% select(
+  ## Welfare support items ##
+  gvslvol, # the old
+  gvslvue, # the unemployed
+  gvhlthc, # the sick
+  gvcldcr, # working parents
+  gvjbevn, # job for everyone
+  gvpdlwk, # paid sick leave
+  ##    Economic criticism items ##
+  sbstrec, # strain on economy
+  sbbsntx, # too much taxes
+  ##    Social criticism items ##
+  sbprvpv, # poverty
+  sbeqsoc, # more equal society
+  sbcwkfm, # work and family
+  ##    Moral criticism items ##
+  sblazy,  # people lazy
+  sblwcoa, # care for others
+  sblwlka  # look after others
+)
+
+# Descriptives
+descriptive_ess <- as.data.frame(psych::describe(ess_df_selected))
+(descriptive_ess <- dplyr::select(descriptive_ess,
+                                  n,
+                                  mean,
+                                  sd,
+                                  median,
+                                  min,
+                                  max,
+                                  skew,
+                                  kurtosis))
+
+# Calculate variance-covariance matrix
+# Welfare support items only
+ess_df_welfare_supp <- ess_df %>% select(
+  ## Welfare support items ##
+  gvslvol, # the old
+  gvslvue, # the unemployed
+  gvhlthc, # the sick
+  gvcldcr, # working parents
+  gvjbevn, # job for everyone
+  gvpdlwk  # paid sick leave
+)
+# Sample implied covariance matrix
+(welfare_supp_cov <- cov(ess_df_welfare_supp,          # data frame
+                        use = "pairwise.complete.obs" # remove NAs
+))
+# Visualize
+(welfare_supp_cor <- cov2cor(welfare_supp_cov))
+corrplot::corrplot(welfare_supp_cor,
+                   is.corr = FALSE,       # whether is a correlation matrix
+                   method = "circle",     # magnitude of covariances as circles
+                   type = "upper",        # remove the bottom of the covariance matrix
+                   addCoef.col = "black"  # add to the plot the coefficients
+)
+
+```
+
+
+
+
+
