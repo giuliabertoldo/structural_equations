@@ -1,0 +1,16 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.Rproj
+
+config.txt
+build/
+build
+∗.exe
+bin/∗.exe
+temp∗
+∗∗/configs
+
+.DS_Store
+
