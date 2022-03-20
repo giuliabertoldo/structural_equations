@@ -19,7 +19,9 @@ library(corrplot)
 
 # 1. General introduction to the dataset
 
-The European Social Survey is a survey conducted across Europe every two years via face-to-face interviews. The survey measures "attitude, beliefs and behavior patterns" on a representative sample of people aged 15 and over resident within private households. Here we consider the 4th edition, run in 2008 in Belgium. 
+The European Social Survey is a survey conducted across Europe every two years via face-to-face interviews. The survey measures "attitude, beliefs and behavior patterns" on a representative sample of people aged 15 and over resident within private households. 
+
+Here we consider the 4th edition, run in 2008 in Belgium. 
 
 ## More information
 
@@ -35,7 +37,8 @@ The European Social Survey is a survey conducted across Europe every two years v
 
 We use a subset of 21 variables. 
 
-*D15-17 & D18-20 & & D21 - 26 & D27 - 29 & D1 - 6: Part of the block D1-50: Welfare includes attitudes towards welfare provision, size of claimant groups, views on taxation, attitutdes towards service delivery and likely future dependence on welfare.*
+## First subset 
+* D15-17 & D18-20 & & D21 - 26 & D27 - 29 & D1 - 6: Part of the block D1-50: Welfare includes attitudes towards welfare provision, size of claimant groups, views on taxation, attitutdes towards service delivery and likely future dependence on welfare.*
 
 People have different views on what the responsibilities of governments should or should not be. For each of the tasks I read out please tell me on a score of 0-10 how much responsibility you think governments should have. 0 means it should not be governments? responsibility at all and 10 means it should be entirely governments? responsibility. Firstly to? (0 Not governments’ responsibility at all - 10 Entirely governments’ responsibility)
 
