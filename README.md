@@ -13,3 +13,4 @@ Work for the course Structural Equations (KU Leuven).
 * [Introductory SEM using lavaan](https://psu-psychology.github.io/r-bootcamp-2018/talks/lavaan_tutorial.html)
 * [TidySEM: Plotting graphs for structural equation models](https://cjvanlissa.github.io/tidySEM/articles/Plotting_graphs.html)
 * [TidySEM: SEM graphing conventions](https://cjvanlissa.github.io/tidySEM/articles/sem_graph.html)
+* [A brief guide to Structural Equation Modeling](https://www.google.com/url?q=https://www.psy.chula.ac.th/psy/file/kmvichakarn/a_brief_guide_to_SEM.pdf&sa=D&source=calendar&usd=2&usg=AOvVaw1dBw9RSDJ9wKcu6mTbGJ_v)
