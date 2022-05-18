@@ -10,3 +10,4 @@ Work for the course Structural Equations (KU Leuven).
 * [CenterStat: Introduction to Structural Equation Modeling](https://centerstat.org/introduction-to-structural-equation-modeling/)
 * [Latent variable modeling using R: A step-by-step guide](https://blogs.baylor.edu/rlatentvariable/)
 * [Latent variable models (5th edition): An introduction to factor, path, and structural equation analysis](https://sites.baylor.edu/lvm5/)
+* [Introductory SEM using lavaan](https://psu-psychology.github.io/r-bootcamp-2018/talks/lavaan_tutorial.html)
