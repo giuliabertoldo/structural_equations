@@ -11,3 +11,5 @@ Work for the course Structural Equations (KU Leuven).
 * [Latent variable modeling using R: A step-by-step guide](https://blogs.baylor.edu/rlatentvariable/)
 * [Latent variable models (5th edition): An introduction to factor, path, and structural equation analysis](https://sites.baylor.edu/lvm5/)
 * [Introductory SEM using lavaan](https://psu-psychology.github.io/r-bootcamp-2018/talks/lavaan_tutorial.html)
+* [TidySEM: Plotting graphs for structural equation models](https://cjvanlissa.github.io/tidySEM/articles/Plotting_graphs.html)
+* [TidySEM: SEM graphing conventions](https://cjvanlissa.github.io/tidySEM/articles/sem_graph.html)
