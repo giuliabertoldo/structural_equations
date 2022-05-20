@@ -1,12 +1,19 @@
+---
+title: "Ewcs v1"
+author: "Giulia Bertoldo"
+date: "5/20/2022"
+output: pdf_document
+---
+
+```{r}
 # Load packages -----------------------------------------------------------
 library(haven)
 library(tidyverse)
 library(mice)
 library(lavaan)
-library(corrplot)
 
 # Import data -------------------------------------------------------------
-df <- read_sav("data/ewcs_2015.sav")
+df <- read_sav("../data/ewcs_2015.sav")
 
 # Dataset: Germany,  employed, variables of interest ----------------------
 df_ge <- df %>%
@@ -29,6 +36,16 @@ df_ge <- df %>%
          Q87c,
          Q87d,
          Q87e,
+         Q78a,
+         Q78b,
+         Q78c,
+         Q78d,
+         Q78e,
+         Q78f,
+         Q78g,
+         Q78h,
+         Q78i,
+         Q78j,
          Q88)
 
 # Exploratory Data Analysis -----------------------------------------------
@@ -38,39 +55,6 @@ glimpse(df_ge)
 # Demographics
 
 
-# * Observed correlation matrix -------------------------------------------
-measaurement_model_data  <- df_ge %>%
-  select(Q61n,
-         Q61d,
-         Q61c,
-         Q61i,
-         Q61e,
-         Q61h,
-         Q61j,
-         Q61k,
-         Q61g,
-         Q61l,
-         Q61a,
-         Q61b,
-         Q87a,
-         Q87b,
-         Q87c,
-         Q87d,
-         Q87e)
-
-# Observed covariance matrix
-measaurement_model_cov <- cov(measaurement_model_data,
-                              use = "pairwise.complete.obs"
-)
-
-# Observed correlation matrix
-measaurement_model_cor <- cov2cor(measaurement_model_cov)
-corrplot::corrplot(measaurement_model_cor,
-                   is.corr = FALSE,       # whether is a correlation matrix
-                   method = "circle",     # magnitude of covariances as circles
-                   type = "upper",        # remove the bottom of the covariance matrix
-                   addCoef.col = "black"  # add to the plot the coefficients
-)
 
 # * Missing data pattern --------------------------------------------------
 
@@ -83,21 +67,44 @@ corrplot::corrplot(measaurement_model_cor,
 purrr::map(df_ge, ~(mean(is.na(.))*100))
 
 
-# * Multivariate normality assumption -------------------------------------
 
-# Henze-Zirkler’s multivariate normality test.
-# remove NAs
-df_ge_not_na <- na.omit(df_ge)
-
-(mvn_test <- mvnTest::HZ.test(data = df_ge_not_na))
+# MODEL -------------------------------------------------------------------
 
 
-mvn_test$multivariateNormality
+# * CFA Psychological needs -----------------------------------------------
+model_needs <- '
+autonomy =~ Q61c + Q61d + Q61e + Q61i + Q61n
+competence =~ Q61g + Q61h + Q61j + Q61k
+relatedness =~ Q61a + Q61b + Q61l
+'
+
+fit_needs <- cfa(model_needs,
+                 data = df_ge,
+                 std.lv = TRUE,
+                 #estimator = 'MLM',
+                 missing = 'fiml')
+summary(fit_needs,
+        standardized = TRUE,
+        fit.measures = TRUE)
 
 
-# Model -------------------------------------------------------------------
-# * CFA -------------------------------------------------------------------
-# Model specification
+# * CFA Psychological wellbeing  ------------------------------------------
+
+model_well <- '
+psych_wellbeing =~ Q87a + Q87b + Q87c + Q87d + Q87e
+'
+
+fit_well <- cfa(model_well,
+                data = df_ge,
+                std.lv = TRUE,
+                # estimator = 'MLM',
+                missing = 'fiml')
+summary(fit_needs,
+        standardized = TRUE,
+        fit.measures = TRUE)
+
+# * CFA Pulled  ------------------------------------------
+
 model_pulled <- '
 autonomy =~ Q61c + Q61d + Q61e + Q61i + Q61n
 competence =~ Q61g + Q61h + Q61j + Q61k
@@ -107,13 +114,12 @@ psych_wellbeing ~~ 0*autonomy
 psych_wellbeing ~~ 0*competence
 psych_wellbeing ~~ 0*relatedness
 '
-# Model estimation
+
 fit_pulled <- cfa(model_pulled,
                 data = df_ge,
                 std.lv = TRUE,
-                estimator = 'ml',
-                missing = 'fiml',
-                se = "bootstrap")
+                # estimator = 'MLM',
+                missing = 'fiml')
 summary(fit_pulled,
         standardized = TRUE,
         fit.measures = TRUE)
@@ -125,28 +131,22 @@ autonomy =~ Q61c + Q61d + Q61e + Q61i + Q61n
 competence =~ Q61g + Q61h + Q61j + Q61k
 relatedness =~ Q61a + Q61b + Q61l
 psych_wellbeing =~ Q87a + Q87b + Q87c + Q87d + Q87e
-psych_wellbeing ~~ 0*autonomy
-psych_wellbeing ~~ 0*competence
-psych_wellbeing ~~ 0*relatedness
 Q88 ~ a1*autonomy + a2*competence + a3*relatedness
 psych_wellbeing ~ autonomy + competence + relatedness + b1*Q88
 i_1 := a1*b1
 i_2 := a2*b1
 i_3 := a3*b1
 '
-med_fit_marker <- sem(med_model,
+med_fit <- sem(med_model,
                data = df_ge,
-               std.lv = FALSE,
-               # estimator = 'ml',
+               std.lv = TRUE,
+               # estimator = 'MLM',
                missing = 'fiml',
                se = "bootstrap")
-summary(med_model,
+summary(med_fit,
         standardized = TRUE,
         fit.measures = TRUE)
+modificationIndices(med_fit, minimum.value=20)
 
-modificationIndices(med_model, minimum.value=20)
-
-# Understand free parameters
-inspect(med_model)
-lavInspect(med_model, what = "list")
+```
 
