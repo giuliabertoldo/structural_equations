@@ -1,0 +1,1627 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={ewcs v2},
+  pdfauthor={Giulia Bertoldo},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{ewcs v2}
+\author{Giulia Bertoldo}
+\date{5/20/2022}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Load packages -----------------------------------------------------------}
+\KeywordTok{library}\NormalTok{(haven)}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.5     v purrr   0.3.4
+## v tibble  3.1.6     v dplyr   1.0.8
+## v tidyr   1.1.2     v stringr 1.4.0
+## v readr   1.4.0     v forcats 0.5.0
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(mice)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'mice'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:stats':
+## 
+##     filter
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     cbind, rbind
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(lavaan)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'lavaan' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{verbatim}
+## This is lavaan 0.6-11
+## lavaan is FREE software! Please report any bugs.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(corrplot)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## corrplot 0.84 loaded
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(tidySEM)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'tidySEM' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: OpenMx
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'OpenMx' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{verbatim}
+## OpenMx may run faster if it is compiled to take advantage of multiple cores.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Import data -------------------------------------------------------------}
+\NormalTok{df <-}\StringTok{ }\KeywordTok{read_sav}\NormalTok{(}\StringTok{"../data/ewcs_2015.sav"}\NormalTok{)}
+
+\CommentTok{# Dataset: Germany,  employed, variables of interest ----------------------}
+\NormalTok{df_ge <-}\StringTok{ }\NormalTok{df }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Country }\OperatorTok{==}\StringTok{ }\DecValTok{11}\NormalTok{, }\CommentTok{# Only Germany}
+\NormalTok{         Q7 }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}\StringTok{   }\CommentTok{# Only employed}
+\StringTok{  }\KeywordTok{select}\NormalTok{(Q2a, }\CommentTok{# gender}
+\NormalTok{         Q2b, }\CommentTok{# age}
+\NormalTok{         Q61n,}
+\NormalTok{         Q61d,}
+\NormalTok{         Q61c,}
+\NormalTok{         Q61i,}
+\NormalTok{         Q61e,}
+\NormalTok{         Q61h,}
+\NormalTok{         Q61j,}
+\NormalTok{         Q61k,}
+\NormalTok{         Q61g,}
+\NormalTok{         Q61l,}
+\NormalTok{         Q61a,}
+\NormalTok{         Q61b,}
+\NormalTok{         Q87a,}
+\NormalTok{         Q87b,}
+\NormalTok{         Q87c,}
+\NormalTok{         Q87d,}
+\NormalTok{         Q87e,}
+\NormalTok{         Q88)}
+
+\CommentTok{# Exploratory Data Analysis -----------------------------------------------}
+\KeywordTok{glimpse}\NormalTok{(df_ge)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 1,833
+## Columns: 20
+## $ Q2a  <dbl+lbl> 1, 2, 2, 2, 1, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2~
+## $ Q2b  <dbl+lbl> 57, 58, 59, 21, 49, 55, 18, 29, 48, 61, 28, 33, 20, 57, 50, 5~
+## $ Q61n <dbl+lbl> 2, 2, 4, 2, 2, 4, 3, 2, 4, 2, 3, 3, 3, 1, 2, 2, 2, 2, 1, 3, 5~
+## $ Q61d <dbl+lbl> 2, 3, 2, 5, 1, 4, 2, 5, 5, 5, 3, 2, 5, 2, 2, 2, 2, 4, 2, 4, 4~
+## $ Q61c <dbl+lbl> 1, 5, 2, 5, 1, 3, 2, 2, 2, 2, 2, 2, 5, 5, 1, 2, 1, 3, 1, 4, 5~
+## $ Q61i <dbl+lbl> 2, 3, 2, 5, 1, 5, 3, 3, 4, 2, 4, 2, 3, 1, 2, 2, 1, 3, 2, 1, 5~
+## $ Q61e <dbl+lbl> 3, 4, 5, 2, 1, 5, 3, 5, 3, 4, 3, 2, 4, 3, 1, 2, 1, 3, 4, 5, 4~
+## $ Q61h <dbl+lbl> 2, 1, 2, 2, 1, 1, 3, 2, 2, 2, 3, 3, 4, 1, 2, 1, 2, 1, 1, 3, 5~
+## $ Q61j <dbl+lbl> 1, 1, 1, 3, 1, 1, 3, 1, 2, 2, 3, 3, 2, 1, 2, 1, 2, 1, 1, 2, 2~
+## $ Q61k <dbl+lbl> 1, 1, 1, 1, 1, 1, 2, 1, 3, 2, 3, 4, 2, 1, 1, 1, 1, 1, 1, 1, 1~
+## $ Q61g <dbl+lbl> 2, 4, 4, 3, 2, 2, 2, 3, 3, 2, 2, 3, 4, 5, 2, 2, 2, 3, 1, 2, 3~
+## $ Q61l <dbl+lbl> 2, 1, 1, 1, 1, 2, 3, 2, 2, 2, 3, 1, 3, 1, 1, 1, 3, 3, 1, 1, 1~
+## $ Q61a <dbl+lbl> 2, 2, 3, 1, 1, 1, 2, 3, 2, 3, 2, 1, 2, 5, 1, 1, 2, 1, 1, 1, 5~
+## $ Q61b <dbl+lbl> 2, 3, 3, 1, 2, 1, 2, 2, 2, 3, 3, 1, 3, 3, 1, 1, 4, 1, 1, 5, 5~
+## $ Q87a <dbl+lbl> 2, 4, 2, 4, 2, 2, 4, 2, 3, 3, 3, 2, 3, 1, 2, 2, 2, 2, 3, 2, 1~
+## $ Q87b <dbl+lbl> 2, 5, 2, 5, 2, 2, 3, 2, 3, 4, 3, 4, 3, 1, 2, 3, 2, 2, 4, 2, 1~
+## $ Q87c <dbl+lbl> 2, 3, 4, 6, 3, 2, 3, 2, 3, 4, 2, 2, 3, 1, 2, 2, 2, 2, 5, 3, 2~
+## $ Q87d <dbl+lbl> 2, 4, 4, 5, 2, 2, 3, 3, 3, 4, 3, 4, 3, 1, 2, 2, 2, 1, 5, 2, 2~
+## $ Q87e <dbl+lbl> 1, 2, 3, 5, 2, 2, 3, 2, 3, 3, 4, 5, 2, 1, 2, 1, 2, 1, 1, 2, 2~
+## $ Q88  <dbl+lbl> 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 1, 1, 1, 1, 1, 2, 2~
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Sample size}
+\NormalTok{(dimen <-}\StringTok{ }\KeywordTok{dim}\NormalTok{(df_ge))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1833   20
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Demographics}
+
+\CommentTok{# * Observed correlation matrix -------------------------------------------}
+\NormalTok{measaurement_model_data  <-}\StringTok{ }\NormalTok{df_ge }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(Q61n,}
+\NormalTok{         Q61d,}
+\NormalTok{         Q61c,}
+\NormalTok{         Q61i,}
+\NormalTok{         Q61e,}
+\NormalTok{         Q61h,}
+\NormalTok{         Q61j,}
+\NormalTok{         Q61k,}
+\NormalTok{         Q61g,}
+\NormalTok{         Q61l,}
+\NormalTok{         Q61a,}
+\NormalTok{         Q61b,}
+\NormalTok{         Q87a,}
+\NormalTok{         Q87b,}
+\NormalTok{         Q87c,}
+\NormalTok{         Q87d,}
+\NormalTok{         Q87e)}
+
+\CommentTok{# Observed covariance matrix}
+\NormalTok{measaurement_model_cov <-}\StringTok{ }\KeywordTok{cov}\NormalTok{(measaurement_model_data,}
+                              \DataTypeTok{use =} \StringTok{"pairwise.complete.obs"}
+\NormalTok{)}
+
+\CommentTok{# Observed correlation matrix}
+\NormalTok{measaurement_model_cor <-}\StringTok{ }\KeywordTok{cov2cor}\NormalTok{(measaurement_model_cov)}
+\NormalTok{corrplot}\OperatorTok{::}\KeywordTok{corrplot}\NormalTok{(measaurement_model_cor,}
+                   \DataTypeTok{is.corr =} \OtherTok{FALSE}\NormalTok{,       }\CommentTok{# whether is a correlation matrix}
+                   \DataTypeTok{method =} \StringTok{"circle"}\NormalTok{,     }\CommentTok{# magnitude of covariances as circles}
+                   \DataTypeTok{type =} \StringTok{"upper"}\NormalTok{,        }\CommentTok{# remove the bottom of the covariance matrix}
+                   \DataTypeTok{addCoef.col =} \StringTok{"black"}  \CommentTok{# add to the plot the coefficients}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ewcs_v2_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# * Missing data pattern --------------------------------------------------}
+
+\NormalTok{(pattern <-}\StringTok{ }\KeywordTok{md.pattern}\NormalTok{(df_ge))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ewcs_v2_files/figure-latex/unnamed-chunk-1-2.pdf}
+
+\begin{verbatim}
+##      Q2a Q87c Q87d Q87b Q2b Q87a Q87e Q61g Q61k Q88 Q61j Q61h Q61l Q61n Q61i
+## 1558   1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 23     1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 29     1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 16     1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 21     1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 12     1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 9      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 28     1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 3      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 2      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 16     1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 2      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 2      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 2      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    0
+## 2      1    1    1    1   1    1    1    1    1   1    1    1    1    1    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    1    0
+## 2      1    1    1    1   1    1    1    1    1   1    1    1    1    1    0
+## 7      1    1    1    1   1    1    1    1    1   1    1    1    1    0    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    0    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    0    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    0    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    0    1
+## 2      1    1    1    1   1    1    1    1    1   1    1    1    1    0    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    0    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    0    0
+## 2      1    1    1    1   1    1    1    1    1   1    1    1    1    0    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    0    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    1    0    0
+## 9      1    1    1    1   1    1    1    1    1   1    1    1    0    1    1
+## 2      1    1    1    1   1    1    1    1    1   1    1    1    0    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    0    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    0    1    1
+## 2      1    1    1    1   1    1    1    1    1   1    1    1    0    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    0    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    0    1    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    0    1    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    1    0    1    0
+## 5      1    1    1    1   1    1    1    1    1   1    1    0    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    0    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    0    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    1    0    1    1    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    0    1    1    0
+## 1      1    1    1    1   1    1    1    1    1   1    1    0    0    0    0
+## 5      1    1    1    1   1    1    1    1    1   1    0    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   1    0    0    1    1    0
+## 1      1    1    1    1   1    1    1    1    1   1    0    0    1    0    1
+## 4      1    1    1    1   1    1    1    1    1   0    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   0    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    1   0    1    1    1    1    1
+## 4      1    1    1    1   1    1    1    1    0   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    0   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    1    0   1    1    0    1    1    1
+## 1      1    1    1    1   1    1    1    1    0   1    0    1    1    1    1
+## 3      1    1    1    1   1    1    1    0    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    0    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    1    1    0    0   0    0    0    0    0    0
+## 3      1    1    1    1   1    1    0    1    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    0    1    1    1   1    1    1    1    1    1
+## 1      1    1    1    1   1    0    1    1    1   0    0    1    1    1    1
+## 2      1    1    1    1   0    1    1    1    1   1    1    1    1    1    1
+## 1      1    1    1    1   0    1    1    1    1   1    1    0    1    0    1
+## 1      1    1    1    0   1    1    1    1    1   1    1    1    1    1    1
+## 1      1    0    0    0   1    0    0    1    1   1    1    1    1    1    1
+## 1      0    1    1    1   1    1    1    1    1   1    1    1    1    0    1
+##        1    1    1    2   3    3    4    5    8   8   10   15   21   24   29
+##      Q61d Q61c Q61b Q61e Q61a    
+## 1558    1    1    1    1    1   0
+## 23      1    1    1    1    0   1
+## 29      1    1    1    0    1   1
+## 16      1    1    1    0    0   2
+## 21      1    1    0    1    1   1
+## 12      1    1    0    1    0   2
+## 1       1    1    0    0    1   2
+## 9       1    1    0    0    0   3
+## 28      1    0    1    1    1   1
+## 1       1    0    1    1    0   2
+## 3       1    0    1    0    1   2
+## 1       1    0    1    0    0   3
+## 1       1    0    0    1    1   2
+## 1       1    0    0    1    0   3
+## 1       1    0    0    0    1   3
+## 2       1    0    0    0    0   4
+## 16      0    1    1    1    1   1
+## 2       0    1    1    0    1   2
+## 1       0    1    0    0    1   3
+## 2       0    1    0    0    0   4
+## 1       0    0    1    1    1   2
+## 2       0    0    1    0    1   3
+## 1       0    0    1    0    0   4
+## 1       0    0    0    1    0   4
+## 1       0    0    0    0    0   5
+## 1       1    1    1    1    1   1
+## 1       1    1    1    1    0   2
+## 1       1    1    1    0    1   2
+## 1       1    1    1    0    0   3
+## 1       1    0    0    1    1   3
+## 1       1    0    0    1    0   4
+## 1       1    0    0    0    0   5
+## 2       0    1    1    1    1   2
+## 1       0    1    1    0    0   4
+## 1       0    1    0    0    0   5
+## 1       0    0    1    1    1   3
+## 1       0    0    0    1    1   4
+## 2       0    0    0    0    0   6
+## 7       1    1    1    1    1   1
+## 1       1    1    1    1    0   2
+## 1       1    0    1    1    1   2
+## 1       1    0    0    1    0   4
+## 1       0    0    1    0    1   4
+## 2       0    0    1    0    0   5
+## 1       1    1    1    1    1   2
+## 1       1    1    1    0    1   3
+## 2       1    0    1    0    1   4
+## 1       1    0    0    0    1   5
+## 1       0    1    0    0    0   6
+## 9       1    1    1    1    1   1
+## 2       1    1    1    1    0   2
+## 1       1    1    1    0    0   3
+## 1       1    1    0    1    0   3
+## 2       1    1    0    0    0   4
+## 1       1    0    0    0    0   5
+## 1       1    1    0    0    0   5
+## 1       1    0    0    0    0   6
+## 1       0    1    1    0    0   5
+## 5       1    1    1    1    1   1
+## 1       1    1    1    0    1   2
+## 1       0    1    0    0    0   5
+## 1       1    1    1    1    1   2
+## 1       1    0    0    0    0   6
+## 1       0    0    0    0    0   9
+## 5       1    1    1    1    1   1
+## 1       0    0    0    1    0   7
+## 1       1    1    1    0    0   5
+## 4       1    1    1    1    1   1
+## 1       1    0    0    1    1   3
+## 1       0    0    0    0    0   6
+## 4       1    1    1    1    1   1
+## 1       1    0    1    1    1   2
+## 1       1    1    1    1    1   2
+## 1       1    1    1    1    1   2
+## 3       1    1    1    1    1   1
+## 1       1    0    1    0    0   4
+## 1       0    0    0    0    0  13
+## 3       1    1    1    1    1   1
+## 1       1    1    1    1    0   2
+## 1       1    1    1    1    1   3
+## 2       1    1    1    1    1   1
+## 1       1    1    1    1    1   3
+## 1       1    1    1    1    1   1
+## 1       1    1    1    1    1   5
+## 1       0    0    1    0    1   5
+##        46   70   76  102  102 531
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{## 1546 subjects have no missing data}
+\CommentTok{## The variables with the highest amount of missing data (28) are Q61e and Q61c}
+
+
+\CommentTok{## Percentage of missing data per variable}
+\NormalTok{purrr}\OperatorTok{::}\KeywordTok{map}\NormalTok{(df_ge, }\OperatorTok{~}\NormalTok{(}\KeywordTok{mean}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(.))}\OperatorTok{*}\DecValTok{100}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $Q2a
+## [1] 0.05455537
+## 
+## $Q2b
+## [1] 0.1636661
+## 
+## $Q61n
+## [1] 1.309329
+## 
+## $Q61d
+## [1] 2.509547
+## 
+## $Q61c
+## [1] 3.818876
+## 
+## $Q61i
+## [1] 1.582106
+## 
+## $Q61e
+## [1] 5.564648
+## 
+## $Q61h
+## [1] 0.8183306
+## 
+## $Q61j
+## [1] 0.5455537
+## 
+## $Q61k
+## [1] 0.436443
+## 
+## $Q61g
+## [1] 0.2727769
+## 
+## $Q61l
+## [1] 1.145663
+## 
+## $Q61a
+## [1] 5.564648
+## 
+## $Q61b
+## [1] 4.146208
+## 
+## $Q87a
+## [1] 0.1636661
+## 
+## $Q87b
+## [1] 0.1091107
+## 
+## $Q87c
+## [1] 0.05455537
+## 
+## $Q87d
+## [1] 0.05455537
+## 
+## $Q87e
+## [1] 0.2182215
+## 
+## $Q88
+## [1] 0.436443
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# * Multivariate normality assumption -------------------------------------}
+
+\CommentTok{# Henze-Zirkler’s multivariate normality test.}
+\CommentTok{# remove NAs}
+\NormalTok{df_ge_not_na <-}\StringTok{ }\KeywordTok{na.omit}\NormalTok{(df_ge)}
+
+\NormalTok{(mvn_test <-}\StringTok{ }\NormalTok{mvnTest}\OperatorTok{::}\KeywordTok{HZ.test}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ df_ge_not_na))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             Henze-Zirkler test for Multivariate Normality 
+## 
+##   data : df_ge_not_na 
+## 
+##   HZ              : 1.062368 
+##   p-value         : 0 
+## 
+##   Result  : Data are not multivariate normal (sig.level = 0.05)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Model -------------------------------------------------------------------}
+\CommentTok{# * CFA -------------------------------------------------------------------}
+
+
+\CommentTok{# * CFA Pulled  ------------------------------------------}
+\CommentTok{# Model specification}
+\NormalTok{model_cfa <-}\StringTok{ '}
+\StringTok{autonomy =~ Q61c + Q61d + Q61e + Q61i + Q61n}
+\StringTok{competence =~ Q61g + Q61h + Q61j + Q61k}
+\StringTok{relatedness =~ Q61a + Q61b + Q61l}
+\StringTok{psych_wellbeing =~ Q87a + Q87b + Q87c + Q87d + Q87e}
+\StringTok{psych_wellbeing ~~ 0*autonomy}
+\StringTok{psych_wellbeing ~~ 0*competence}
+\StringTok{psych_wellbeing ~~ 0*relatedness}
+\StringTok{'}
+\CommentTok{# Model estimation}
+\NormalTok{fit_cfa <-}\StringTok{ }\KeywordTok{cfa}\NormalTok{(model_cfa,}
+                  \DataTypeTok{data =}\NormalTok{ df_ge,}
+                  \DataTypeTok{std.lv =} \OtherTok{FALSE}\NormalTok{,}
+                  \DataTypeTok{estimator =} \StringTok{'ml'}\NormalTok{,}
+                  \DataTypeTok{missing =} \StringTok{'fiml'}\NormalTok{,}
+                  \DataTypeTok{se =} \StringTok{"bootstrap"}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(fit_cfa,}
+        \DataTypeTok{standardized =} \OtherTok{TRUE}\NormalTok{,}
+        \DataTypeTok{fit.measures =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## lavaan 0.6-11 ended normally after 58 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                        54
+##                                                       
+##   Number of observations                          1833
+##   Number of missing patterns                        80
+##                                                       
+## Model Test User Model:
+##                                                       
+##   Test statistic                              1546.278
+##   Degrees of freedom                               116
+##   P-value (Chi-square)                           0.000
+## 
+## Model Test Baseline Model:
+## 
+##   Test statistic                             11547.449
+##   Degrees of freedom                               136
+##   P-value                                        0.000
+## 
+## User Model versus Baseline Model:
+## 
+##   Comparative Fit Index (CFI)                    0.875
+##   Tucker-Lewis Index (TLI)                       0.853
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)             -39975.014
+##   Loglikelihood unrestricted model (H1)             NA
+##                                                       
+##   Akaike (AIC)                               80058.028
+##   Bayesian (BIC)                             80355.768
+##   Sample-size adjusted Bayesian (BIC)        80184.212
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.082
+##   90 Percent confidence interval - lower         0.078
+##   90 Percent confidence interval - upper         0.086
+##   P-value RMSEA <= 0.05                          0.000
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.131
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                            Bootstrap
+##   Number of requested bootstrap draws             1000
+##   Number of successful bootstrap draws            1000
+## 
+## Latent Variables:
+##                      Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
+##   autonomy =~                                                             
+##     Q61c                1.000                               0.954    0.700
+##     Q61d                1.069    0.033   32.432    0.000    1.020    0.757
+##     Q61e                0.775    0.037   20.866    0.000    0.740    0.571
+##     Q61i                0.983    0.037   26.767    0.000    0.938    0.747
+##     Q61n                0.999    0.035   28.332    0.000    0.954    0.780
+##   competence =~                                                           
+##     Q61g                1.000                               0.396    0.412
+##     Q61h                1.513    0.136   11.106    0.000    0.599    0.758
+##     Q61j                1.579    0.139   11.357    0.000    0.625    0.728
+##     Q61k                0.815    0.081   10.126    0.000    0.323    0.505
+##   relatedness =~                                                          
+##     Q61a                1.000                               0.779    0.673
+##     Q61b                1.201    0.056   21.388    0.000    0.936    0.727
+##     Q61l                0.425    0.146    2.901    0.004    0.331    0.423
+##   psych_wellbeing =~                                                      
+##     Q87a                1.000                               0.735    0.776
+##     Q87b                1.151    0.042   27.571    0.000    0.846    0.763
+##     Q87c                1.172    0.042   27.681    0.000    0.861    0.798
+##     Q87d                1.159    0.047   24.591    0.000    0.852    0.780
+##     Q87e                1.028    0.043   24.173    0.000    0.755    0.698
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
+##   autonomy ~~                                                           
+##     psych_wellbeng    0.000                               0.000    0.000
+##   competence ~~                                                         
+##     psych_wellbeng    0.000                               0.000    0.000
+##   relatedness ~~                                                        
+##     psych_wellbeng    0.000                               0.000    0.000
+##   autonomy ~~                                                           
+##     competence        0.178    0.019    9.472    0.000    0.471    0.471
+##     relatedness       0.373    0.038    9.806    0.000    0.502    0.502
+##   competence ~~                                                         
+##     relatedness       0.155    0.024    6.416    0.000    0.502    0.502
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
+##    .Q61c              3.341    0.031  106.191    0.000    3.341    2.452
+##    .Q61d              3.351    0.032  103.108    0.000    3.351    2.486
+##    .Q61e              4.036    0.030  132.888    0.000    4.036    3.114
+##    .Q61i              3.115    0.030  103.767    0.000    3.115    2.478
+##    .Q61n              3.045    0.029  104.275    0.000    3.045    2.490
+##    .Q61g              2.288    0.022  103.834    0.000    2.288    2.379
+##    .Q61h              1.903    0.018  104.084    0.000    1.903    2.408
+##    .Q61j              1.731    0.020   86.374    0.000    1.731    2.016
+##    .Q61k              1.340    0.015   92.289    0.000    1.340    2.094
+##    .Q61a              2.321    0.028   81.743    0.000    2.321    2.005
+##    .Q61b              2.855    0.031   90.859    0.000    2.855    2.218
+##    .Q61l              1.731    0.019   92.400    0.000    1.731    2.208
+##    .Q87a              2.340    0.022  105.671    0.000    2.340    2.472
+##    .Q87b              2.525    0.026   97.682    0.000    2.525    2.280
+##    .Q87c              2.510    0.025   98.721    0.000    2.510    2.326
+##    .Q87d              2.542    0.025  101.321    0.000    2.542    2.327
+##    .Q87e              2.474    0.025   98.574    0.000    2.474    2.287
+##     autonomy          0.000                               0.000    0.000
+##     competence        0.000                               0.000    0.000
+##     relatedness       0.000                               0.000    0.000
+##     psych_wellbeng    0.000                               0.000    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
+##    .Q61c              0.946    0.045   21.081    0.000    0.946    0.510
+##    .Q61d              0.776    0.044   17.629    0.000    0.776    0.427
+##    .Q61e              1.133    0.040   28.210    0.000    1.133    0.674
+##    .Q61i              0.699    0.033   21.160    0.000    0.699    0.443
+##    .Q61n              0.586    0.033   17.541    0.000    0.586    0.392
+##    .Q61g              0.768    0.034   22.864    0.000    0.768    0.830
+##    .Q61h              0.265    0.023   11.569    0.000    0.265    0.425
+##    .Q61j              0.347    0.025   13.896    0.000    0.347    0.470
+##    .Q61k              0.305    0.021   14.525    0.000    0.305    0.745
+##    .Q61a              0.732    0.086    8.476    0.000    0.732    0.547
+##    .Q61b              0.781    0.132    5.939    0.000    0.781    0.471
+##    .Q61l              0.505    0.045   11.162    0.000    0.505    0.821
+##    .Q87a              0.356    0.023   15.646    0.000    0.356    0.397
+##    .Q87b              0.512    0.034   15.031    0.000    0.512    0.417
+##    .Q87c              0.423    0.030   14.194    0.000    0.423    0.363
+##    .Q87d              0.468    0.028   16.465    0.000    0.468    0.392
+##    .Q87e              0.600    0.031   19.388    0.000    0.600    0.513
+##     autonomy          0.910    0.050   18.062    0.000    1.000    1.000
+##     competence        0.157    0.026    6.078    0.000    1.000    1.000
+##     relatedness       0.608    0.091    6.677    0.000    1.000    1.000
+##     psych_wellbeng    0.540    0.039   13.992    0.000    1.000    1.000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Understand free parameters}
+\KeywordTok{inspect}\NormalTok{(fit_cfa)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $lambda
+##      autnmy cmptnc rltdns psych_
+## Q61c      0      0      0      0
+## Q61d      1      0      0      0
+## Q61e      2      0      0      0
+## Q61i      3      0      0      0
+## Q61n      4      0      0      0
+## Q61g      0      0      0      0
+## Q61h      0      5      0      0
+## Q61j      0      6      0      0
+## Q61k      0      7      0      0
+## Q61a      0      0      0      0
+## Q61b      0      0      8      0
+## Q61l      0      0      9      0
+## Q87a      0      0      0      0
+## Q87b      0      0      0     10
+## Q87c      0      0      0     11
+## Q87d      0      0      0     12
+## Q87e      0      0      0     13
+## 
+## $theta
+##      Q61c Q61d Q61e Q61i Q61n Q61g Q61h Q61j Q61k Q61a Q61b Q61l Q87a Q87b Q87c
+## Q61c 14                                                                        
+## Q61d  0   15                                                                   
+## Q61e  0    0   16                                                              
+## Q61i  0    0    0   17                                                         
+## Q61n  0    0    0    0   18                                                    
+## Q61g  0    0    0    0    0   19                                               
+## Q61h  0    0    0    0    0    0   20                                          
+## Q61j  0    0    0    0    0    0    0   21                                     
+## Q61k  0    0    0    0    0    0    0    0   22                                
+## Q61a  0    0    0    0    0    0    0    0    0   23                           
+## Q61b  0    0    0    0    0    0    0    0    0    0   24                      
+## Q61l  0    0    0    0    0    0    0    0    0    0    0   25                 
+## Q87a  0    0    0    0    0    0    0    0    0    0    0    0   26            
+## Q87b  0    0    0    0    0    0    0    0    0    0    0    0    0   27       
+## Q87c  0    0    0    0    0    0    0    0    0    0    0    0    0    0   28  
+## Q87d  0    0    0    0    0    0    0    0    0    0    0    0    0    0    0  
+## Q87e  0    0    0    0    0    0    0    0    0    0    0    0    0    0    0  
+##      Q87d Q87e
+## Q61c          
+## Q61d          
+## Q61e          
+## Q61i          
+## Q61n          
+## Q61g          
+## Q61h          
+## Q61j          
+## Q61k          
+## Q61a          
+## Q61b          
+## Q61l          
+## Q87a          
+## Q87b          
+## Q87c          
+## Q87d 29       
+## Q87e  0   30  
+## 
+## $psi
+##                 autnmy cmptnc rltdns psych_
+## autonomy        31                         
+## competence      35     32                  
+## relatedness     36     37     33           
+## psych_wellbeing  0      0      0     34    
+## 
+## $nu
+##      intrcp
+## Q61c     38
+## Q61d     39
+## Q61e     40
+## Q61i     41
+## Q61n     42
+## Q61g     43
+## Q61h     44
+## Q61j     45
+## Q61k     46
+## Q61a     47
+## Q61b     48
+## Q61l     49
+## Q87a     50
+## Q87b     51
+## Q87c     52
+## Q87d     53
+## Q87e     54
+## 
+## $alpha
+##                 intrcp
+## autonomy             0
+## competence           0
+## relatedness          0
+## psych_wellbeing      0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{lavInspect}\NormalTok{(fit_cfa, }\DataTypeTok{what =} \StringTok{"list"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    id             lhs op             rhs user block group free ustart exo label
+## 1   1        autonomy =~            Q61c    1     1     1    0      1   0      
+## 2   2        autonomy =~            Q61d    1     1     1    1     NA   0      
+## 3   3        autonomy =~            Q61e    1     1     1    2     NA   0      
+## 4   4        autonomy =~            Q61i    1     1     1    3     NA   0      
+## 5   5        autonomy =~            Q61n    1     1     1    4     NA   0      
+## 6   6      competence =~            Q61g    1     1     1    0      1   0      
+## 7   7      competence =~            Q61h    1     1     1    5     NA   0      
+## 8   8      competence =~            Q61j    1     1     1    6     NA   0      
+## 9   9      competence =~            Q61k    1     1     1    7     NA   0      
+## 10 10     relatedness =~            Q61a    1     1     1    0      1   0      
+## 11 11     relatedness =~            Q61b    1     1     1    8     NA   0      
+## 12 12     relatedness =~            Q61l    1     1     1    9     NA   0      
+## 13 13 psych_wellbeing =~            Q87a    1     1     1    0      1   0      
+## 14 14 psych_wellbeing =~            Q87b    1     1     1   10     NA   0      
+## 15 15 psych_wellbeing =~            Q87c    1     1     1   11     NA   0      
+## 16 16 psych_wellbeing =~            Q87d    1     1     1   12     NA   0      
+## 17 17 psych_wellbeing =~            Q87e    1     1     1   13     NA   0      
+## 18 18        autonomy ~~ psych_wellbeing    1     1     1    0      0   0      
+## 19 19      competence ~~ psych_wellbeing    1     1     1    0      0   0      
+## 20 20     relatedness ~~ psych_wellbeing    1     1     1    0      0   0      
+## 21 21            Q61c ~~            Q61c    0     1     1   14     NA   0      
+## 22 22            Q61d ~~            Q61d    0     1     1   15     NA   0      
+## 23 23            Q61e ~~            Q61e    0     1     1   16     NA   0      
+## 24 24            Q61i ~~            Q61i    0     1     1   17     NA   0      
+## 25 25            Q61n ~~            Q61n    0     1     1   18     NA   0      
+## 26 26            Q61g ~~            Q61g    0     1     1   19     NA   0      
+## 27 27            Q61h ~~            Q61h    0     1     1   20     NA   0      
+## 28 28            Q61j ~~            Q61j    0     1     1   21     NA   0      
+## 29 29            Q61k ~~            Q61k    0     1     1   22     NA   0      
+## 30 30            Q61a ~~            Q61a    0     1     1   23     NA   0      
+## 31 31            Q61b ~~            Q61b    0     1     1   24     NA   0      
+## 32 32            Q61l ~~            Q61l    0     1     1   25     NA   0      
+## 33 33            Q87a ~~            Q87a    0     1     1   26     NA   0      
+## 34 34            Q87b ~~            Q87b    0     1     1   27     NA   0      
+## 35 35            Q87c ~~            Q87c    0     1     1   28     NA   0      
+## 36 36            Q87d ~~            Q87d    0     1     1   29     NA   0      
+## 37 37            Q87e ~~            Q87e    0     1     1   30     NA   0      
+## 38 38        autonomy ~~        autonomy    0     1     1   31     NA   0      
+## 39 39      competence ~~      competence    0     1     1   32     NA   0      
+## 40 40     relatedness ~~     relatedness    0     1     1   33     NA   0      
+## 41 41 psych_wellbeing ~~ psych_wellbeing    0     1     1   34     NA   0      
+## 42 42        autonomy ~~      competence    0     1     1   35     NA   0      
+## 43 43        autonomy ~~     relatedness    0     1     1   36     NA   0      
+## 44 44      competence ~~     relatedness    0     1     1   37     NA   0      
+## 45 45            Q61c ~1                    0     1     1   38     NA   0      
+## 46 46            Q61d ~1                    0     1     1   39     NA   0      
+## 47 47            Q61e ~1                    0     1     1   40     NA   0      
+## 48 48            Q61i ~1                    0     1     1   41     NA   0      
+## 49 49            Q61n ~1                    0     1     1   42     NA   0      
+## 50 50            Q61g ~1                    0     1     1   43     NA   0      
+## 51 51            Q61h ~1                    0     1     1   44     NA   0      
+## 52 52            Q61j ~1                    0     1     1   45     NA   0      
+## 53 53            Q61k ~1                    0     1     1   46     NA   0      
+## 54 54            Q61a ~1                    0     1     1   47     NA   0      
+## 55 55            Q61b ~1                    0     1     1   48     NA   0      
+## 56 56            Q61l ~1                    0     1     1   49     NA   0      
+## 57 57            Q87a ~1                    0     1     1   50     NA   0      
+## 58 58            Q87b ~1                    0     1     1   51     NA   0      
+## 59 59            Q87c ~1                    0     1     1   52     NA   0      
+## 60 60            Q87d ~1                    0     1     1   53     NA   0      
+## 61 61            Q87e ~1                    0     1     1   54     NA   0      
+## 62 62        autonomy ~1                    0     1     1    0      0   0      
+## 63 63      competence ~1                    0     1     1    0      0   0      
+## 64 64     relatedness ~1                    0     1     1    0      0   0      
+## 65 65 psych_wellbeing ~1                    0     1     1    0      0   0      
+##    plabel start   est    se
+## 1    .p1. 1.000 1.000 0.000
+## 2    .p2. 1.085 1.069 0.033
+## 3    .p3. 0.784 0.775 0.037
+## 4    .p4. 0.964 0.983 0.037
+## 5    .p5. 0.962 0.999 0.035
+## 6    .p6. 1.000 1.000 0.000
+## 7    .p7. 1.636 1.513 0.136
+## 8    .p8. 1.513 1.579 0.139
+## 9    .p9. 0.845 0.815 0.081
+## 10  .p10. 1.000 1.000 0.000
+## 11  .p11. 1.286 1.201 0.056
+## 12  .p12. 0.315 0.425 0.146
+## 13  .p13. 1.000 1.000 0.000
+## 14  .p14. 1.131 1.151 0.042
+## 15  .p15. 1.150 1.172 0.042
+## 16  .p16. 1.159 1.159 0.047
+## 17  .p17. 1.012 1.028 0.043
+## 18  .p18. 0.000 0.000 0.000
+## 19  .p19. 0.000 0.000 0.000
+## 20  .p20. 0.000 0.000 0.000
+## 21  .p21. 0.929 0.946 0.045
+## 22  .p22. 0.908 0.776 0.044
+## 23  .p23. 0.838 1.133 0.040
+## 24  .p24. 0.790 0.699 0.033
+## 25  .p25. 0.749 0.586 0.033
+## 26  .p26. 0.462 0.768 0.034
+## 27  .p27. 0.312 0.265 0.023
+## 28  .p28. 0.369 0.347 0.025
+## 29  .p29. 0.205 0.305 0.021
+## 30  .p30. 0.670 0.732 0.086
+## 31  .p31. 0.826 0.781 0.132
+## 32  .p32. 0.307 0.505 0.045
+## 33  .p33. 0.448 0.356 0.023
+## 34  .p34. 0.613 0.512 0.034
+## 35  .p35. 0.582 0.423 0.030
+## 36  .p36. 0.597 0.468 0.028
+## 37  .p37. 0.586 0.600 0.031
+## 38  .p38. 0.050 0.910 0.050
+## 39  .p39. 0.050 0.157 0.026
+## 40  .p40. 0.050 0.608 0.091
+## 41  .p41. 0.050 0.540 0.039
+## 42  .p42. 0.000 0.178 0.019
+## 43  .p43. 0.000 0.373 0.038
+## 44  .p44. 0.000 0.155 0.024
+## 45  .p45. 3.340 3.341 0.031
+## 46  .p46. 3.352 3.351 0.032
+## 47  .p47. 4.039 4.036 0.030
+## 48  .p48. 3.115 3.115 0.030
+## 49  .p49. 3.044 3.045 0.029
+## 50  .p50. 2.287 2.288 0.022
+## 51  .p51. 1.902 1.903 0.018
+## 52  .p52. 1.731 1.731 0.020
+## 53  .p53. 1.339 1.340 0.015
+## 54  .p54. 2.323 2.321 0.028
+## 55  .p55. 2.855 2.855 0.031
+## 56  .p56. 1.731 1.731 0.019
+## 57  .p57. 2.340 2.340 0.022
+## 58  .p58. 2.525 2.525 0.026
+## 59  .p59. 2.510 2.510 0.025
+## 60  .p60. 2.542 2.542 0.025
+## 61  .p61. 2.474 2.474 0.025
+## 62  .p62. 0.000 0.000 0.000
+## 63  .p63. 0.000 0.000 0.000
+## 64  .p64. 0.000 0.000 0.000
+## 65  .p65. 0.000 0.000 0.000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# * Path diagram: CFA --------------------------------------------------}
+
+\CommentTok{# Modification indices}
+\KeywordTok{modificationIndices}\NormalTok{(fit_cfa, }\DataTypeTok{minimum.value=}\DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 lhs op             rhs      mi    epc sepc.lv sepc.all sepc.nox
+## 19       competence ~~ psych_wellbeing 142.082  0.090   0.308    0.308    0.308
+## 20      relatedness ~~ psych_wellbeing  21.920  0.073   0.128    0.128    0.128
+## 69         autonomy =~            Q61k  62.024 -0.151  -0.144   -0.225   -0.225
+## 77         autonomy =~            Q87e  72.818  0.187   0.178    0.165    0.165
+## 80       competence =~            Q61e  36.340 -0.563  -0.223   -0.172   -0.172
+## 83       competence =~            Q61a  38.688 -0.731  -0.290   -0.250   -0.250
+## 84       competence =~            Q61b  69.122 -1.163  -0.461   -0.358   -0.358
+## 85       competence =~            Q61l 384.955  1.316   0.521    0.665    0.665
+## 90       competence =~            Q87e  37.101  0.338   0.134    0.124    0.124
+## 96      relatedness =~            Q61g  54.148  0.310   0.242    0.251    0.251
+## 110 psych_wellbeing =~            Q61g  56.559  0.229   0.169    0.175    0.175
+## 111 psych_wellbeing =~            Q61h  30.749  0.117   0.086    0.109    0.109
+## 116 psych_wellbeing =~            Q61l 144.427  0.301   0.221    0.282    0.282
+## 117            Q61c ~~            Q61d  28.842  0.154   0.154    0.180    0.180
+## 119            Q61c ~~            Q61i  28.945 -0.143  -0.143   -0.176   -0.176
+## 135            Q61d ~~            Q61n  29.318 -0.142  -0.142   -0.210   -0.210
+## 162            Q61i ~~            Q61n  48.927  0.169   0.169    0.265    0.265
+## 188            Q61g ~~            Q61j  42.089 -0.109  -0.109   -0.212   -0.212
+## 192            Q61g ~~            Q61l  93.501  0.150   0.150    0.241    0.241
+## 194            Q61g ~~            Q87b  25.350  0.083   0.083    0.133    0.133
+## 211            Q61j ~~            Q61l  30.005  0.065   0.065    0.156    0.156
+## 218            Q61k ~~            Q61b  29.456 -0.081  -0.081   -0.165   -0.165
+## 219            Q61k ~~            Q61l  95.403  0.097   0.097    0.248    0.248
+## 225            Q61a ~~            Q61b 209.768  1.000   1.000    1.323    1.323
+## 226            Q61a ~~            Q61l  38.234 -0.134  -0.134   -0.220   -0.220
+## 232            Q61b ~~            Q61l  42.608 -0.167  -0.167   -0.265   -0.265
+## 238            Q61l ~~            Q87a  32.338  0.065   0.065    0.153    0.153
+## 245            Q87a ~~            Q87d  36.640 -0.085  -0.085   -0.209   -0.209
+## 247            Q87b ~~            Q87c  35.833 -0.098  -0.098   -0.210   -0.210
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# * Full SEM: Mediation ---------------------------------------------------}
+\CommentTok{# Model specification}
+\NormalTok{med_model <-}\StringTok{ '}
+\StringTok{autonomy =~ Q61c + Q61d + Q61e + Q61i + Q61n}
+\StringTok{competence =~ Q61g + Q61h + Q61j + Q61k}
+\StringTok{relatedness =~ Q61a + Q61b + Q61l}
+\StringTok{psych_wellbeing =~ Q87a + Q87b + Q87c + Q87d + Q87e}
+\StringTok{psych_wellbeing ~~ 0*autonomy}
+\StringTok{psych_wellbeing ~~ 0*competence}
+\StringTok{psych_wellbeing ~~ 0*relatedness}
+\StringTok{Q88 ~ a1*autonomy + a2*competence + a3*relatedness}
+\StringTok{psych_wellbeing ~ autonomy + competence + relatedness + b1*Q88}
+\StringTok{i_1 := a1*b1}
+\StringTok{i_2 := a2*b1}
+\StringTok{i_3 := a3*b1}
+\StringTok{'}
+\CommentTok{# Model estimation}
+\NormalTok{med_fit <-}\StringTok{ }\KeywordTok{sem}\NormalTok{(med_model,}
+               \DataTypeTok{data =}\NormalTok{ df_ge,}
+               \DataTypeTok{std.lv =} \OtherTok{FALSE}\NormalTok{,}
+               \DataTypeTok{estimator =} \StringTok{'ml'}\NormalTok{,}
+               \DataTypeTok{missing =} \StringTok{'fiml'}\NormalTok{,}
+               \DataTypeTok{se =} \StringTok{"bootstrap"}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(med_fit,}
+        \DataTypeTok{standardized =} \OtherTok{TRUE}\NormalTok{,}
+        \DataTypeTok{fit.measures =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## lavaan 0.6-11 ended normally after 82 iterations
+## 
+##   Estimator                                         ML
+##   Optimization method                           NLMINB
+##   Number of model parameters                        63
+##                                                       
+##   Number of observations                          1833
+##   Number of missing patterns                        83
+##                                                       
+## Model Test User Model:
+##                                                       
+##   Test statistic                              1360.894
+##   Degrees of freedom                               126
+##   P-value (Chi-square)                           0.000
+## 
+## Model Test Baseline Model:
+## 
+##   Test statistic                             12434.863
+##   Degrees of freedom                               153
+##   P-value                                        0.000
+## 
+## User Model versus Baseline Model:
+## 
+##   Comparative Fit Index (CFI)                    0.899
+##   Tucker-Lewis Index (TLI)                       0.878
+## 
+## Loglikelihood and Information Criteria:
+## 
+##   Loglikelihood user model (H0)             -41255.015
+##   Loglikelihood unrestricted model (H1)             NA
+##                                                       
+##   Akaike (AIC)                               82636.030
+##   Bayesian (BIC)                             82983.394
+##   Sample-size adjusted Bayesian (BIC)        82783.245
+## 
+## Root Mean Square Error of Approximation:
+## 
+##   RMSEA                                          0.073
+##   90 Percent confidence interval - lower         0.070
+##   90 Percent confidence interval - upper         0.077
+##   P-value RMSEA <= 0.05                          0.000
+## 
+## Standardized Root Mean Square Residual:
+## 
+##   SRMR                                           0.058
+## 
+## Parameter Estimates:
+## 
+##   Standard errors                            Bootstrap
+##   Number of requested bootstrap draws             1000
+##   Number of successful bootstrap draws            1000
+## 
+## Latent Variables:
+##                      Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
+##   autonomy =~                                                             
+##     Q61c                1.000                               0.956    0.702
+##     Q61d                1.061    0.032   32.842    0.000    1.014    0.753
+##     Q61e                0.772    0.039   19.728    0.000    0.739    0.570
+##     Q61i                0.982    0.039   25.280    0.000    0.939    0.747
+##     Q61n                1.000    0.039   25.827    0.000    0.956    0.782
+##   competence =~                                                           
+##     Q61g                1.000                               0.447    0.464
+##     Q61h                1.305    0.119   10.977    0.000    0.583    0.738
+##     Q61j                1.378    0.115   11.934    0.000    0.615    0.716
+##     Q61k                0.723    0.076    9.460    0.000    0.323    0.505
+##   relatedness =~                                                          
+##     Q61a                1.000                               0.507    0.438
+##     Q61b                1.275    0.069   18.352    0.000    0.646    0.502
+##     Q61l                1.028    0.235    4.375    0.000    0.521    0.664
+##   psych_wellbeing =~                                                      
+##     Q87a                1.000                               0.739    0.780
+##     Q87b                1.152    0.039   29.574    0.000    0.851    0.769
+##     Q87c                1.159    0.042   27.549    0.000    0.856    0.793
+##     Q87d                1.142    0.045   25.242    0.000    0.844    0.772
+##     Q87e                1.029    0.043   24.052    0.000    0.760    0.703
+## 
+## Regressions:
+##                     Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
+##   Q88 ~                                                                  
+##     autonomy  (a1)     0.047    0.028    1.713    0.087    0.045    0.069
+##     competenc (a2)    -0.163    0.271   -0.603    0.547   -0.073   -0.111
+##     relatdnss (a3)     0.873    0.337    2.589    0.010    0.442    0.676
+##   psych_wellbeing ~                                                      
+##     autonomy          -0.020    0.025   -0.794    0.427   -0.026   -0.026
+##     competenc          0.399    0.143    2.791    0.005    0.241    0.241
+##     relatdnss          0.220    0.182    1.209    0.227    0.151    0.151
+##     Q88       (b1)     0.327    0.046    7.139    0.000    0.443    0.290
+## 
+## Covariances:
+##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
+##   autonomy ~~                                                           
+##    .psych_wellbeng    0.000                               0.000    0.000
+##   competence ~~                                                         
+##    .psych_wellbeng    0.000                               0.000    0.000
+##   relatedness ~~                                                        
+##    .psych_wellbeng    0.000                               0.000    0.000
+##   autonomy ~~                                                           
+##     competence        0.202    0.020    9.910    0.000    0.473    0.473
+##     relatedness       0.256    0.055    4.668    0.000    0.528    0.528
+##   competence ~~                                                         
+##     relatedness       0.178    0.022    8.105    0.000    0.786    0.786
+## 
+## Intercepts:
+##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
+##    .Q61c              3.340    0.032  105.362    0.000    3.340    2.451
+##    .Q61d              3.350    0.031  108.871    0.000    3.350    2.486
+##    .Q61e              4.035    0.031  130.334    0.000    4.035    3.113
+##    .Q61i              3.114    0.029  105.954    0.000    3.114    2.478
+##    .Q61n              3.044    0.028  107.241    0.000    3.044    2.489
+##    .Q61g              2.287    0.022  103.806    0.000    2.287    2.379
+##    .Q61h              1.902    0.018  107.833    0.000    1.902    2.408
+##    .Q61j              1.731    0.020   87.581    0.000    1.731    2.016
+##    .Q61k              1.339    0.015   87.336    0.000    1.339    2.093
+##    .Q61a              2.321    0.029   80.751    0.000    2.321    2.005
+##    .Q61b              2.856    0.031   91.540    0.000    2.856    2.219
+##    .Q61l              1.731    0.018   93.856    0.000    1.731    2.208
+##    .Q87a              1.723    0.084   20.468    0.000    1.723    1.820
+##    .Q87b              1.814    0.098   18.457    0.000    1.814    1.638
+##    .Q87c              1.795    0.101   17.797    0.000    1.795    1.663
+##    .Q87d              1.837    0.099   18.551    0.000    1.837    1.681
+##    .Q87e              1.839    0.089   20.592    0.000    1.839    1.700
+##    .Q88               1.884    0.015  123.708    0.000    1.884    2.877
+##     autonomy          0.000                               0.000    0.000
+##     competence        0.000                               0.000    0.000
+##     relatedness       0.000                               0.000    0.000
+##    .psych_wellbeng    0.000                               0.000    0.000
+## 
+## Variances:
+##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
+##    .Q61c              0.942    0.048   19.481    0.000    0.942    0.508
+##    .Q61d              0.788    0.044   17.786    0.000    0.788    0.434
+##    .Q61e              1.134    0.042   27.086    0.000    1.134    0.675
+##    .Q61i              0.697    0.032   21.619    0.000    0.697    0.441
+##    .Q61n              0.581    0.034   17.119    0.000    0.581    0.389
+##    .Q61g              0.725    0.033   22.012    0.000    0.725    0.784
+##    .Q61h              0.285    0.023   12.502    0.000    0.285    0.456
+##    .Q61j              0.359    0.024   14.941    0.000    0.359    0.487
+##    .Q61k              0.305    0.021   14.501    0.000    0.305    0.745
+##    .Q61a              1.083    0.120    9.040    0.000    1.083    0.808
+##    .Q61b              1.240    0.177    6.990    0.000    1.240    0.748
+##    .Q61l              0.344    0.053    6.501    0.000    0.344    0.559
+##    .Q87a              0.350    0.021   16.459    0.000    0.350    0.391
+##    .Q87b              0.502    0.032   15.809    0.000    0.502    0.409
+##    .Q87c              0.432    0.030   14.591    0.000    0.432    0.371
+##    .Q87d              0.482    0.028   17.387    0.000    0.482    0.403
+##    .Q87e              0.593    0.030   19.921    0.000    0.593    0.506
+##    .Q88               0.258    0.024   10.790    0.000    0.258    0.603
+##     autonomy          0.914    0.054   16.898    0.000    1.000    1.000
+##     competence        0.199    0.029    6.851    0.000    1.000    1.000
+##     relatedness       0.257    0.119    2.162    0.031    1.000    1.000
+##    .psych_wellbeng    0.368    0.027   13.445    0.000    0.674    0.674
+## 
+## Defined Parameters:
+##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
+##     i_1               0.015    0.010    1.609    0.108    0.020    0.020
+##     i_2              -0.054    0.090   -0.592    0.554   -0.032   -0.032
+##     i_3               0.286    0.107    2.680    0.007    0.196    0.196
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Understand free parameters}
+\KeywordTok{inspect}\NormalTok{(med_fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $lambda
+##      autnmy cmptnc rltdns psych_ Q88
+## Q61c      0      0      0      0   0
+## Q61d      1      0      0      0   0
+## Q61e      2      0      0      0   0
+## Q61i      3      0      0      0   0
+## Q61n      4      0      0      0   0
+## Q61g      0      0      0      0   0
+## Q61h      0      5      0      0   0
+## Q61j      0      6      0      0   0
+## Q61k      0      7      0      0   0
+## Q61a      0      0      0      0   0
+## Q61b      0      0      8      0   0
+## Q61l      0      0      9      0   0
+## Q87a      0      0      0      0   0
+## Q87b      0      0      0     10   0
+## Q87c      0      0      0     11   0
+## Q87d      0      0      0     12   0
+## Q87e      0      0      0     13   0
+## Q88       0      0      0      0   0
+## 
+## $theta
+##      Q61c Q61d Q61e Q61i Q61n Q61g Q61h Q61j Q61k Q61a Q61b Q61l Q87a Q87b Q87c
+## Q61c 21                                                                        
+## Q61d  0   22                                                                   
+## Q61e  0    0   23                                                              
+## Q61i  0    0    0   24                                                         
+## Q61n  0    0    0    0   25                                                    
+## Q61g  0    0    0    0    0   26                                               
+## Q61h  0    0    0    0    0    0   27                                          
+## Q61j  0    0    0    0    0    0    0   28                                     
+## Q61k  0    0    0    0    0    0    0    0   29                                
+## Q61a  0    0    0    0    0    0    0    0    0   30                           
+## Q61b  0    0    0    0    0    0    0    0    0    0   31                      
+## Q61l  0    0    0    0    0    0    0    0    0    0    0   32                 
+## Q87a  0    0    0    0    0    0    0    0    0    0    0    0   33            
+## Q87b  0    0    0    0    0    0    0    0    0    0    0    0    0   34       
+## Q87c  0    0    0    0    0    0    0    0    0    0    0    0    0    0   35  
+## Q87d  0    0    0    0    0    0    0    0    0    0    0    0    0    0    0  
+## Q87e  0    0    0    0    0    0    0    0    0    0    0    0    0    0    0  
+## Q88   0    0    0    0    0    0    0    0    0    0    0    0    0    0    0  
+##      Q87d Q87e Q88
+## Q61c              
+## Q61d              
+## Q61e              
+## Q61i              
+## Q61n              
+## Q61g              
+## Q61h              
+## Q61j              
+## Q61k              
+## Q61a              
+## Q61b              
+## Q61l              
+## Q87a              
+## Q87b              
+## Q87c              
+## Q87d 36           
+## Q87e  0   37      
+## Q88   0    0    0 
+## 
+## $psi
+##                 autnmy cmptnc rltdns psych_ Q88
+## autonomy        39                             
+## competence      43     40                      
+## relatedness     44     45     41               
+## psych_wellbeing  0      0      0     42        
+## Q88              0      0      0      0     38 
+## 
+## $beta
+##                 autnmy cmptnc rltdns psych_ Q88
+## autonomy             0      0      0      0   0
+## competence           0      0      0      0   0
+## relatedness          0      0      0      0   0
+## psych_wellbeing     17     18     19      0  20
+## Q88                 14     15     16      0   0
+## 
+## $nu
+##      intrcp
+## Q61c     46
+## Q61d     47
+## Q61e     48
+## Q61i     49
+## Q61n     50
+## Q61g     51
+## Q61h     52
+## Q61j     53
+## Q61k     54
+## Q61a     55
+## Q61b     56
+## Q61l     57
+## Q87a     58
+## Q87b     59
+## Q87c     60
+## Q87d     61
+## Q87e     62
+## Q88       0
+## 
+## $alpha
+##                 intrcp
+## autonomy             0
+## competence           0
+## relatedness          0
+## psych_wellbeing      0
+## Q88                 63
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{lavInspect}\NormalTok{(med_fit, }\DataTypeTok{what =} \StringTok{"list"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    id             lhs op             rhs user block group free ustart exo label
+## 1   1        autonomy =~            Q61c    1     1     1    0      1   0      
+## 2   2        autonomy =~            Q61d    1     1     1    1     NA   0      
+## 3   3        autonomy =~            Q61e    1     1     1    2     NA   0      
+## 4   4        autonomy =~            Q61i    1     1     1    3     NA   0      
+## 5   5        autonomy =~            Q61n    1     1     1    4     NA   0      
+## 6   6      competence =~            Q61g    1     1     1    0      1   0      
+## 7   7      competence =~            Q61h    1     1     1    5     NA   0      
+## 8   8      competence =~            Q61j    1     1     1    6     NA   0      
+## 9   9      competence =~            Q61k    1     1     1    7     NA   0      
+## 10 10     relatedness =~            Q61a    1     1     1    0      1   0      
+## 11 11     relatedness =~            Q61b    1     1     1    8     NA   0      
+## 12 12     relatedness =~            Q61l    1     1     1    9     NA   0      
+## 13 13 psych_wellbeing =~            Q87a    1     1     1    0      1   0      
+## 14 14 psych_wellbeing =~            Q87b    1     1     1   10     NA   0      
+## 15 15 psych_wellbeing =~            Q87c    1     1     1   11     NA   0      
+## 16 16 psych_wellbeing =~            Q87d    1     1     1   12     NA   0      
+## 17 17 psych_wellbeing =~            Q87e    1     1     1   13     NA   0      
+## 18 18        autonomy ~~ psych_wellbeing    1     1     1    0      0   0      
+## 19 19      competence ~~ psych_wellbeing    1     1     1    0      0   0      
+## 20 20     relatedness ~~ psych_wellbeing    1     1     1    0      0   0      
+## 21 21             Q88  ~        autonomy    1     1     1   14     NA   0    a1
+## 22 22             Q88  ~      competence    1     1     1   15     NA   0    a2
+## 23 23             Q88  ~     relatedness    1     1     1   16     NA   0    a3
+## 24 24 psych_wellbeing  ~        autonomy    1     1     1   17     NA   0      
+## 25 25 psych_wellbeing  ~      competence    1     1     1   18     NA   0      
+## 26 26 psych_wellbeing  ~     relatedness    1     1     1   19     NA   0      
+## 27 27 psych_wellbeing  ~             Q88    1     1     1   20     NA   0    b1
+## 28 28            Q61c ~~            Q61c    0     1     1   21     NA   0      
+## 29 29            Q61d ~~            Q61d    0     1     1   22     NA   0      
+## 30 30            Q61e ~~            Q61e    0     1     1   23     NA   0      
+## 31 31            Q61i ~~            Q61i    0     1     1   24     NA   0      
+## 32 32            Q61n ~~            Q61n    0     1     1   25     NA   0      
+## 33 33            Q61g ~~            Q61g    0     1     1   26     NA   0      
+## 34 34            Q61h ~~            Q61h    0     1     1   27     NA   0      
+## 35 35            Q61j ~~            Q61j    0     1     1   28     NA   0      
+## 36 36            Q61k ~~            Q61k    0     1     1   29     NA   0      
+## 37 37            Q61a ~~            Q61a    0     1     1   30     NA   0      
+## 38 38            Q61b ~~            Q61b    0     1     1   31     NA   0      
+## 39 39            Q61l ~~            Q61l    0     1     1   32     NA   0      
+## 40 40            Q87a ~~            Q87a    0     1     1   33     NA   0      
+## 41 41            Q87b ~~            Q87b    0     1     1   34     NA   0      
+## 42 42            Q87c ~~            Q87c    0     1     1   35     NA   0      
+## 43 43            Q87d ~~            Q87d    0     1     1   36     NA   0      
+## 44 44            Q87e ~~            Q87e    0     1     1   37     NA   0      
+## 45 45             Q88 ~~             Q88    0     1     1   38     NA   0      
+## 46 46        autonomy ~~        autonomy    0     1     1   39     NA   0      
+## 47 47      competence ~~      competence    0     1     1   40     NA   0      
+## 48 48     relatedness ~~     relatedness    0     1     1   41     NA   0      
+## 49 49 psych_wellbeing ~~ psych_wellbeing    0     1     1   42     NA   0      
+## 50 50        autonomy ~~      competence    0     1     1   43     NA   0      
+## 51 51        autonomy ~~     relatedness    0     1     1   44     NA   0      
+## 52 52      competence ~~     relatedness    0     1     1   45     NA   0      
+## 53 53            Q61c ~1                    0     1     1   46     NA   0      
+## 54 54            Q61d ~1                    0     1     1   47     NA   0      
+## 55 55            Q61e ~1                    0     1     1   48     NA   0      
+## 56 56            Q61i ~1                    0     1     1   49     NA   0      
+## 57 57            Q61n ~1                    0     1     1   50     NA   0      
+## 58 58            Q61g ~1                    0     1     1   51     NA   0      
+## 59 59            Q61h ~1                    0     1     1   52     NA   0      
+## 60 60            Q61j ~1                    0     1     1   53     NA   0      
+## 61 61            Q61k ~1                    0     1     1   54     NA   0      
+## 62 62            Q61a ~1                    0     1     1   55     NA   0      
+## 63 63            Q61b ~1                    0     1     1   56     NA   0      
+## 64 64            Q61l ~1                    0     1     1   57     NA   0      
+## 65 65            Q87a ~1                    0     1     1   58     NA   0      
+## 66 66            Q87b ~1                    0     1     1   59     NA   0      
+## 67 67            Q87c ~1                    0     1     1   60     NA   0      
+## 68 68            Q87d ~1                    0     1     1   61     NA   0      
+## 69 69            Q87e ~1                    0     1     1   62     NA   0      
+## 70 70             Q88 ~1                    0     1     1   63     NA   0      
+## 71 71        autonomy ~1                    0     1     1    0      0   0      
+## 72 72      competence ~1                    0     1     1    0      0   0      
+## 73 73     relatedness ~1                    0     1     1    0      0   0      
+## 74 74 psych_wellbeing ~1                    0     1     1    0      0   0      
+## 75 75             i_1 :=           a1*b1    1     0     0    0     NA   0   i_1
+## 76 76             i_2 :=           a2*b1    1     0     0    0     NA   0   i_2
+## 77 77             i_3 :=           a3*b1    1     0     0    0     NA   0   i_3
+##    plabel start    est    se
+## 1    .p1. 1.000  1.000 0.000
+## 2    .p2. 1.085  1.061 0.032
+## 3    .p3. 0.784  0.772 0.039
+## 4    .p4. 0.964  0.982 0.039
+## 5    .p5. 0.961  1.000 0.039
+## 6    .p6. 1.000  1.000 0.000
+## 7    .p7. 1.635  1.305 0.119
+## 8    .p8. 1.513  1.378 0.115
+## 9    .p9. 0.845  0.723 0.076
+## 10  .p10. 1.000  1.000 0.000
+## 11  .p11. 1.289  1.275 0.069
+## 12  .p12. 0.316  1.028 0.235
+## 13  .p13. 1.000  1.000 0.000
+## 14  .p14. 1.131  1.152 0.039
+## 15  .p15. 1.150  1.159 0.042
+## 16  .p16. 1.159  1.142 0.045
+## 17  .p17. 1.013  1.029 0.043
+## 18  .p18. 0.000  0.000 0.000
+## 19  .p19. 0.000  0.000 0.000
+## 20  .p20. 0.000  0.000 0.000
+## 21  .p21. 0.000  0.047 0.028
+## 22  .p22. 0.000 -0.163 0.271
+## 23  .p23. 0.000  0.873 0.337
+## 24  .p24. 0.000 -0.020 0.025
+## 25  .p25. 0.000  0.399 0.143
+## 26  .p26. 0.000  0.220 0.182
+## 27  .p27. 0.000  0.327 0.046
+## 28  .p28. 0.929  0.942 0.048
+## 29  .p29. 0.908  0.788 0.044
+## 30  .p30. 0.838  1.134 0.042
+## 31  .p31. 0.790  0.697 0.032
+## 32  .p32. 0.749  0.581 0.034
+## 33  .p33. 0.462  0.725 0.033
+## 34  .p34. 0.312  0.285 0.023
+## 35  .p35. 0.369  0.359 0.024
+## 36  .p36. 0.205  0.305 0.021
+## 37  .p37. 0.670  1.083 0.120
+## 38  .p38. 0.826  1.240 0.177
+## 39  .p39. 0.307  0.344 0.053
+## 40  .p40. 0.448  0.350 0.021
+## 41  .p41. 0.613  0.502 0.032
+## 42  .p42. 0.582  0.432 0.030
+## 43  .p43. 0.597  0.482 0.028
+## 44  .p44. 0.586  0.593 0.030
+## 45  .p45. 0.214  0.258 0.024
+## 46  .p46. 0.050  0.914 0.054
+## 47  .p47. 0.050  0.199 0.029
+## 48  .p48. 0.050  0.257 0.119
+## 49  .p49. 0.050  0.368 0.027
+## 50  .p50. 0.000  0.202 0.020
+## 51  .p51. 0.000  0.256 0.055
+## 52  .p52. 0.000  0.178 0.022
+## 53  .p53. 3.340  3.340 0.032
+## 54  .p54. 3.352  3.350 0.031
+## 55  .p55. 4.039  4.035 0.031
+## 56  .p56. 3.115  3.114 0.029
+## 57  .p57. 3.044  3.044 0.028
+## 58  .p58. 2.287  2.287 0.022
+## 59  .p59. 1.902  1.902 0.018
+## 60  .p60. 1.731  1.731 0.020
+## 61  .p61. 1.339  1.339 0.015
+## 62  .p62. 2.323  2.321 0.029
+## 63  .p63. 2.854  2.856 0.031
+## 64  .p64. 1.731  1.731 0.018
+## 65  .p65. 2.340  1.723 0.084
+## 66  .p66. 2.525  1.814 0.098
+## 67  .p67. 2.510  1.795 0.101
+## 68  .p68. 2.542  1.837 0.099
+## 69  .p69. 2.474  1.839 0.089
+## 70  .p70. 1.884  1.884 0.015
+## 71  .p71. 0.000  0.000 0.000
+## 72  .p72. 0.000  0.000 0.000
+## 73  .p73. 0.000  0.000 0.000
+## 74  .p74. 0.000  0.000 0.000
+## 75        0.000  0.015 0.010
+## 76        0.000 -0.054 0.090
+## 77        0.000  0.286 0.107
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# * Path diagram: SEM --------------------------------------------------}
+\CommentTok{# Specify layout}
+\NormalTok{lay <-}\StringTok{ }\KeywordTok{get_layout}\NormalTok{(}\StringTok{"Q61c"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{,}
+                  \StringTok{"Q61d"}\NormalTok{, }\StringTok{"autonomy"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{,}
+                  \StringTok{"Q61e"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{,}
+                  \StringTok{"Q61i"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\StringTok{"Q87a"}\NormalTok{,}
+                  \StringTok{"Q61n"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\StringTok{"Q87b"}\NormalTok{,}
+                  \StringTok{"Q61g"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\StringTok{"Q88"}\NormalTok{, }\StringTok{"psych_wellbeing"}\NormalTok{, }\StringTok{"Q87c"}\NormalTok{,}
+                  \StringTok{"Q61h"}\NormalTok{, }\StringTok{"competence"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\StringTok{"Q87d"}\NormalTok{,}
+                  \StringTok{"Q61j"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\StringTok{"Q87e"}\NormalTok{,}
+                  \StringTok{"Q61k"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{,}
+                  \StringTok{"Q61a"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{,}
+                  \StringTok{"Q61b"}\NormalTok{, }\StringTok{"relatedness"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{,}
+                  \StringTok{"Q61l"}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{, }\OtherTok{NA}\NormalTok{,}
+                  \DataTypeTok{rows =} \DecValTok{12}\NormalTok{)}
+
+\NormalTok{diagram <-}\StringTok{ }\KeywordTok{graph_sem}\NormalTok{(}\DataTypeTok{model =}\NormalTok{ med_fit,}
+                  \DataTypeTok{layout =}\NormalTok{ lay)}
+\NormalTok{diagram}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ewcs_v2_files/figure-latex/unnamed-chunk-1-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{graph_data <-}\StringTok{ }\KeywordTok{prepare_graph}\NormalTok{(med_fit)}
+\NormalTok{graph_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## A tidy_sem object with 52 edges and 22 nodes, and the following elements:
+## [0;32mv  [0medges             [0;32mv  [0mnodes
+## [0;32mv  [0mrect_width        [0;32mv  [0mrect_height
+## [0;32mv  [0mellipses_width    [0;32mv  [0mellipses_height
+## [0;32mv  [0mvariance_diameter [0;32mv  [0mspacing_x
+## [0;32mv  [0mspacing_y         [0;32mv  [0mtext_size
+## [0;32mv  [0mcurvature         [0;37mo  [0mangle
+## [0;32mv  [0mfix_coord
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(graph_data,}
+     \DataTypeTok{layout =}\NormalTok{ lay,        }\CommentTok{# layout}
+     \DataTypeTok{label =} \StringTok{"est_std"}\NormalTok{,   }\CommentTok{# get standardized results (not rounded)}
+     \DataTypeTok{angle =} \DecValTok{170}\NormalTok{)         }\CommentTok{# adjust the arrows}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{ewcs_v2_files/figure-latex/unnamed-chunk-1-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# * Modification indices --------------------------------------------------}
+\KeywordTok{modificationIndices}\NormalTok{(med_fit, }\DataTypeTok{minimum.value=}\DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 lhs op  rhs      mi    epc sepc.lv sepc.all sepc.nox
+## 81         autonomy =~ Q61k  64.159 -0.153  -0.147   -0.229   -0.229
+## 83         autonomy =~ Q61b  40.185  0.290   0.277    0.215    0.215
+## 84         autonomy =~ Q61l  80.852 -0.292  -0.280   -0.357   -0.357
+## 88         autonomy =~ Q87d  28.842 -0.117  -0.112   -0.103   -0.103
+## 89         autonomy =~ Q87e  53.634  0.170   0.163    0.150    0.150
+## 92       competence =~ Q61e  35.750 -0.490  -0.219   -0.169   -0.169
+## 95       competence =~ Q61a  22.857 -0.805  -0.359   -0.311   -0.311
+## 96       competence =~ Q61b  65.392 -1.555  -0.694   -0.539   -0.539
+## 97       competence =~ Q61l 125.030  1.568   0.700    0.893    0.893
+## 105     relatedness =~ Q61e  23.399 -0.380  -0.193   -0.149   -0.149
+## 108     relatedness =~ Q61g 167.685  1.465   0.742    0.772    0.772
+## 109     relatedness =~ Q61h  26.680 -0.544  -0.276   -0.349   -0.349
+## 111     relatedness =~ Q61k  23.255 -0.362  -0.184   -0.287   -0.287
+## 122 psych_wellbeing =~ Q61g  38.274  0.228   0.168    0.175    0.175
+## 128 psych_wellbeing =~ Q61l  30.403  0.223   0.165    0.210    0.210
+## 129            Q61c ~~ Q61d  30.661  0.159   0.159    0.184    0.184
+## 131            Q61c ~~ Q61i  31.553 -0.150  -0.150   -0.185   -0.185
+## 148            Q61d ~~ Q61n  26.153 -0.134  -0.134   -0.198   -0.198
+## 153            Q61d ~~ Q61a  22.270  0.121   0.121    0.131    0.131
+## 154            Q61d ~~ Q61b  29.211  0.150   0.150    0.152    0.152
+## 177            Q61i ~~ Q61n  44.941  0.163   0.163    0.256    0.256
+## 205            Q61g ~~ Q61j  83.479 -0.144  -0.144   -0.282   -0.282
+## 209            Q61g ~~ Q61l  46.343  0.094   0.094    0.188    0.188
+## 215            Q61g ~~  Q88  70.401  0.099   0.099    0.228    0.228
+## 238            Q61k ~~ Q61b  33.572 -0.093  -0.093   -0.152   -0.152
+## 239            Q61k ~~ Q61l  90.591  0.086   0.086    0.266    0.266
+## 245            Q61k ~~  Q88  35.270 -0.046  -0.046   -0.164   -0.164
+## 246            Q61a ~~ Q61b 378.504  0.625   0.625    0.540    0.540
+## 247            Q61a ~~ Q61l  42.274 -0.138  -0.138   -0.226   -0.226
+## 253            Q61a ~~  Q88  35.008 -0.097  -0.097   -0.184   -0.184
+## 254            Q61b ~~ Q61l  84.334 -0.242  -0.242   -0.371   -0.371
+## 266            Q61l ~~  Q88  27.514  0.071   0.071    0.237    0.237
+## 269            Q87a ~~ Q87d  28.694 -0.073  -0.073   -0.177   -0.177
+## 272            Q87b ~~ Q87c  33.091 -0.090  -0.090   -0.193   -0.193
+## 276            Q87c ~~ Q87d  21.872  0.072   0.072    0.158    0.158
+\end{verbatim}
+
+\end{document}
