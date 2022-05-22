@@ -1,13 +1,3 @@
----
-title: "ewcs v2"
-author: "Giulia Bertoldo"
-date: "5/20/2022"
-output:
-  html_document:
-    df_print: paged
----
-
-```{r}
 # Load packages -----------------------------------------------------------
 library(haven)
 library(tidyverse)
@@ -31,7 +21,7 @@ plot_matrix <- function(matrix_toplot) {
 }
 
 # Import data -------------------------------------------------------------
-df <- read_sav("../data/ewcs_2015.sav")
+df <- read_sav("data/ewcs_2015.sav")
 
 # Dataset: Germany,  employed, variables of interest ----------------------
 df_ge <- df %>%
@@ -115,11 +105,11 @@ job_sat ~~ ev_job_sat*job_sat
 '
 # Model estimation
 fit_cfa_free <- cfa(model_cfa_free,
-               data = df_ge,
-               std.lv = FALSE,
-               estimator = 'ml',
-               missing = 'fiml',
-               se = "bootstrap")
+                    data = df_ge,
+                    std.lv = FALSE,
+                    estimator = 'ml',
+                    missing = 'fiml',
+                    se = "bootstrap")
 summary(fit_cfa_free,
         standardized = TRUE,
         fit.measures = TRUE)
@@ -167,11 +157,11 @@ Q61a ~~ Q61b
 '
 # Model estimation
 fit_cfa_free_mod <- cfa(model_cfa_free_mod,
-                    data = df_ge,
-                    std.lv = FALSE,
-                    estimator = 'ml',
-                    missing = 'fiml',
-                    se = "bootstrap")
+                        data = df_ge,
+                        std.lv = FALSE,
+                        estimator = 'ml',
+                        missing = 'fiml',
+                        se = "bootstrap")
 summary(fit_cfa_free_mod,
         standardized = TRUE,
         fit.measures = TRUE)
@@ -205,7 +195,44 @@ plot_matrix(residuals(fit_cfa_free_mod, type='cor')$cov)
 modificationIndices(fit_cfa_free_mod, minimum.value=20)
 
 
-# * Full SEM: Mediation ---------------------------------------------------
+# * Full SEM: Mediation (a) ---------------------------------------------------
+# Model specification
+med_model <- '
+autonomy =~ Q61c + Q61d + Q61e + Q61i + Q61n
+competence =~ Q61g + Q61h + Q61j + Q61k
+relatedness =~ Q61a + Q61b + Q61l
+psych_wellbeing =~ Q87a + Q87b + Q87c + Q87d + Q87e
+job_sat =~ Q88
+job_sat ~~ ev_job_sat*job_sat
+job_sat ~ a1*autonomy + a2*competence + a3*relatedness
+psych_wellbeing ~ autonomy + competence + relatedness + b1*job_sat
+i_1 := a1*b1
+i_2 := a2*b1
+i_3 := a3*b1
+'
+# Model estimation
+med_fit <- sem(med_model,
+               data = df_ge,
+               std.lv = FALSE,
+               estimator = 'ml',
+               missing = 'fiml',
+               se = "bootstrap")
+summary(med_fit,
+        standardized = TRUE,
+        fit.measures = TRUE)
+
+# Understand free parameters
+inspect(med_fit)
+lavInspect(med_fit, what = "list")
+
+
+# * Path diagram: SEM --------------------------------------------------
+
+
+# * Modification indices --------------------------------------------------
+modificationIndices(med_fit, minimum.value=20)
+
+# * Full SEM: Mediation (b) ---------------------------------------------------
 # Model specification
 med_model <- '
 autonomy =~ Q61c + Q61d + Q61e + Q61i + Q61n
@@ -238,29 +265,7 @@ lavInspect(med_fit, what = "list")
 
 
 # * Path diagram: SEM --------------------------------------------------
-# Specify layout
-lay <- get_layout("autonomy", NA, NA,
-                  "competence", "Q88", "psych_wellbeing",
-                  "relatedness", NA, NA,
-                  rows = 3)
-
-diagram <- graph_sem(model = med_fit,
-                     layout = lay)
-diagram
-
-graph_data <- prepare_graph(med_fit)
-graph_data
-
-plot(graph_data,
-     layout = lay,        # layout
-     label = "est_std",   # get standardized results (not rounded)
-     angle = 170)         # adjust the arrows
-
-
 
 
 # * Modification indices --------------------------------------------------
 modificationIndices(med_fit, minimum.value=20)
-
-```
-

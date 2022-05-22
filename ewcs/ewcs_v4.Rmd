@@ -1,12 +1,9 @@
 ---
-title: "ewcs v2"
+title: "ewcs_v4: No error covariances"
 author: "Giulia Bertoldo"
-date: "5/20/2022"
-output:
-  html_document:
-    df_print: paged
+date: "5/22/2022"
+output: html_document
 ---
-
 ```{r}
 # Load packages -----------------------------------------------------------
 library(haven)
