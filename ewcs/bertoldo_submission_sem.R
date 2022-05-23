@@ -28,31 +28,30 @@ df_ge <- df %>%
   filter(Country == 11, # Only Germany
          Q7 == 1) %>%   # Only employed
   select(# Q2a, # gender
-         # Q2b, # age
-         Q61n,
-         Q61d,
-         Q61c,
-         Q61i,
-         Q61e,
-         Q61h,
-         Q61j,
-         Q61k,
-         Q61g,
-         Q61l,
-         Q61a,
-         Q61b,
-         Q87a,
-         Q87b,
-         Q87c,
-         Q87d,
-         Q87e,
-         Q88)
+    # Q2b, # age
+    Q61n,
+    Q61d,
+    Q61c,
+    Q61i,
+    Q61e,
+    Q61h,
+    Q61j,
+    Q61k,
+    Q61g,
+    Q61l,
+    Q61a,
+    Q61b,
+    Q87a,
+    Q87b,
+    Q87c,
+    Q87d,
+    Q87e,
+    Q88)
 
 # Exploratory Data Analysis -----------------------------------------------
 glimpse(df_ge)
 # Sample size
 (dimen <- dim(df_ge))
-# Demographics
 
 # * Observed correlation matrix -------------------------------------------
 # Observed covariance matrix
@@ -84,8 +83,9 @@ df_ge_not_na <- na.omit(df_ge)
 
 
 # Models -------------------------------------------------------------------
-
 # * CFA free --------------------------------------------------------------
+# This CFA model corresponds to the measurement part of the proposed SEM
+# All covariances between latent variables are estimated
 # Calculate sample standard deviation for Q88
 (var_q88 <- var(df_ge$Q88, na.rm = T))
 
@@ -143,6 +143,9 @@ modificationIndices(fit_cfa_free, minimum.value=20)
 
 
 # * CFA modified ----------------------------------------------------------
+## This model adopts the suggestion of adding an error covariance between
+## Q61a and Q61b.
+## The model is not the final model.
 # Model specification
 ## See: https://lavaan.ugent.be/tutorial/sem.html
 model_cfa_free_mod <- '
@@ -193,8 +196,9 @@ plot_matrix(residuals(fit_cfa_free_mod, type='cor')$cov)
 # ** Modification indices -------------------------------------------------
 modificationIndices(fit_cfa_free_mod, minimum.value=20)
 
-
 # * Full SEM: Original Mediation ---------------------------------------------------
+## This is the final SEM model and also the model hypothesized before looking at
+## modification indices.
 # Model specification
 med_model_original <- '
 autonomy =~ Q61c + Q61d + Q61e + Q61i + Q61n
@@ -211,11 +215,11 @@ i_3 := a3*b1
 '
 # Model estimation
 med_fit_original <- sem(med_model_original,
-               data = df_ge,
-               std.lv = FALSE,
-               estimator = 'ml',
-               missing = 'fiml',
-               se = "bootstrap")
+                        data = df_ge,
+                        std.lv = FALSE,
+                        estimator = 'ml',
+                        missing = 'fiml',
+                        se = "bootstrap")
 summary(med_fit_original,
         standardized = TRUE,
         fit.measures = TRUE)
@@ -274,6 +278,9 @@ lavaanPlot(model = med_fit_original,
 modificationIndices(med_fit_original, minimum.value=20)
 
 # * Full SEM: Mediation (b) ---------------------------------------------------
+## This model adopts the suggestion of adding an error covariance between
+## Q61a and Q61b.
+## The model is not the final model.
 # Model specification
 med_model <- '
 autonomy =~ Q61c + Q61d + Q61e + Q61i + Q61n
@@ -303,10 +310,3 @@ summary(med_fit,
 # Understand free parameters
 inspect(med_fit)
 lavInspect(med_fit, what = "list")
-
-
-# ** Path diagram: SEM --------------------------------------------------
-
-
-# ** Modification indices --------------------------------------------------
-modificationIndices(med_fit, minimum.value=20)
