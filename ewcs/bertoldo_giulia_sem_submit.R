@@ -1,13 +1,14 @@
 # Load packages -----------------------------------------------------------
 library(haven)
+library(psych)
 library(tidyverse)
 library(mice)
 library(lavaan)
 library(corrplot)
+library(purrr)
 library(tidySEM)
 library(lavaanPlot)
 library(semPlot)
-
 
 # Functions ---------------------------------------------------------------
 # Residual correlation matrix
@@ -52,6 +53,9 @@ df_ge <- df %>%
 glimpse(df_ge)
 # Sample size
 (dimen <- dim(df_ge))
+# Describe
+describe(df_ge)
+
 
 # * Observed correlation matrix -------------------------------------------
 # Observed covariance matrix
@@ -83,9 +87,11 @@ df_ge_not_na <- na.omit(df_ge)
 
 
 # Models -------------------------------------------------------------------
+
 # * CFA free --------------------------------------------------------------
 # This CFA model corresponds to the measurement part of the proposed SEM
 # All covariances between latent variables are estimated
+
 # Calculate sample standard deviation for Q88
 (var_q88 <- var(df_ge$Q88, na.rm = T))
 
@@ -117,7 +123,6 @@ summary(fit_cfa_free,
 inspect(fit_cfa_free)
 lavInspect(fit_cfa_free, what = "list")
 
-
 # ** Path diagram ---------------------------------------------------------
 labels <- list(autonomy = "Autonomy",
                competence = "Competence",
@@ -141,61 +146,6 @@ plot_matrix(residuals(fit_cfa_free, type='cor')$cov)
 # ** Modification indices -------------------------------------------------
 modificationIndices(fit_cfa_free, minimum.value=20)
 
-
-# * CFA modified ----------------------------------------------------------
-## This model adopts the suggestion of adding an error covariance between
-## Q61a and Q61b.
-## The model is not the final model.
-# Model specification
-## See: https://lavaan.ugent.be/tutorial/sem.html
-model_cfa_free_mod <- '
-autonomy =~ Q61c + Q61d + Q61e + Q61i + Q61n
-competence =~ Q61g + Q61h + Q61j + Q61k
-relatedness =~ Q61a + Q61b + Q61l
-psych_wellbeing =~ Q87a + Q87b + Q87c + Q87d + Q87e
-job_sat =~ Q88
-job_sat ~~ ev_job_sat*job_sat
-Q61a ~~ Q61b
-'
-# Model estimation
-fit_cfa_free_mod <- cfa(model_cfa_free_mod,
-                        data = df_ge,
-                        std.lv = FALSE,
-                        estimator = 'ml',
-                        missing = 'fiml',
-                        se = "bootstrap")
-summary(fit_cfa_free_mod,
-        standardized = TRUE,
-        fit.measures = TRUE)
-
-# Understand free parameters
-inspect(fit_cfa_free_mod)
-lavInspect(fit_cfa_free_mod, what = "list")
-
-
-# ** Path diagram ---------------------------------------------------------
-labels <- list(autonomy = "Autonomy",
-               competence = "Competence",
-               relatedness = "Relatedness",
-               psych_wellbeing = "Psychological Well-being",
-               job_sat = 'Job Satisfaction')
-
-lavaanPlot(model = fit_cfa_free_mod,
-           labels = labels,
-           edge_options = list(color = "grey"),
-           coefs = TRUE,
-           sig = .05,
-           stand = TRUE,
-           covs = TRUE,
-           # stars = 'latent',
-           graph_options = list(rankdir = "RL"))
-
-# ** Residual correlation matrix ------------------------------------------
-plot_matrix(residuals(fit_cfa_free_mod, type='cor')$cov)
-
-# ** Modification indices -------------------------------------------------
-modificationIndices(fit_cfa_free_mod, minimum.value=20)
-
 # * Full SEM: Original Mediation ---------------------------------------------------
 ## This is the final SEM model and also the model hypothesized before looking at
 ## modification indices.
@@ -207,11 +157,27 @@ relatedness =~ Q61a + Q61b + Q61l
 psych_wellbeing =~ Q87a + Q87b + Q87c + Q87d + Q87e
 job_sat =~ Q88
 job_sat ~~ ev_job_sat*job_sat
-job_sat ~ a1*autonomy + a2*competence + a3*relatedness
-psych_wellbeing ~ autonomy + competence + relatedness + b1*job_sat
-i_1 := a1*b1
-i_2 := a2*b1
-i_3 := a3*b1
+
+# Direct effect
+psych_wellbeing ~ c1*autonomy + c2*competence + c3*relatedness
+
+# Mediator
+## Path A
+job_sat ~ a1*autonomy
+job_sat ~ a2*competence
+job_sat ~ a3*relatedness
+## Path B
+psych_wellbeing ~ b1*job_sat
+
+## Indirect effect
+a1b1 := a1*b1
+a2b1 := a2*b1
+a3b1 := a3*b1
+
+## Total effect
+total1 := c1 + (a1*b1)
+total2 := c2 + (a2*b1)
+total3 := c3 + (a3*b1)
 '
 # Model estimation
 med_fit_original <- sem(med_model_original,
@@ -242,21 +208,6 @@ residuals(med_fit_original)
 # ** Parameter estimates with confidence intervals ------------------------
 parameterEstimates(med_fit_original, standardized=TRUE)
 
-
-# ** Residual variances and R^2 -------------------------------------------
-
-theta <- round(inspect(med_fit_original, "est")$theta,3)
-theta.std <- round(inspect(med_fit_original, "std")$theta,3)
-(r2 <- round(inspect(med_fit_original, "r2"),3))
-
-data.frame(row.names = c(),                       # empty the columns names
-           Variables = colnames(theta),           # variable names
-           "Residuals" = diag(theta),             # diagonal theta
-           "Std. Residuals" = diag(theta.std),    # diagonal std. theta
-           "R Squared" = r2                       # R-squared
-)
-
-
 # ** Path diagram: SEM --------------------------------------------------
 labels <- list(autonomy = "Autonomy",
                competence = "Competence",
@@ -277,36 +228,3 @@ lavaanPlot(model = med_fit_original,
 # **  Modification indices --------------------------------------------------
 modificationIndices(med_fit_original, minimum.value=20)
 
-# * Full SEM: Mediation (b) ---------------------------------------------------
-## This model adopts the suggestion of adding an error covariance between
-## Q61a and Q61b.
-## The model is not the final model.
-# Model specification
-med_model <- '
-autonomy =~ Q61c + Q61d + Q61e + Q61i + Q61n
-competence =~ Q61g + Q61h + Q61j + Q61k
-relatedness =~ Q61a + Q61b + Q61l
-psych_wellbeing =~ Q87a + Q87b + Q87c + Q87d + Q87e
-job_sat =~ Q88
-job_sat ~~ ev_job_sat*job_sat
-Q61a ~~ Q61b
-job_sat ~ a1*autonomy + a2*competence + a3*relatedness
-psych_wellbeing ~ autonomy + competence + relatedness + b1*job_sat
-i_1 := a1*b1
-i_2 := a2*b1
-i_3 := a3*b1
-'
-# Model estimation
-med_fit <- sem(med_model,
-               data = df_ge,
-               std.lv = FALSE,
-               estimator = 'ml',
-               missing = 'fiml',
-               se = "bootstrap")
-summary(med_fit,
-        standardized = TRUE,
-        fit.measures = TRUE)
-
-# Understand free parameters
-inspect(med_fit)
-lavInspect(med_fit, what = "list")
